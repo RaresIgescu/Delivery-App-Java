@@ -47,4 +47,8 @@ public class Curier {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
+    public String toString() {
+        return "Nume: " + nume + "Prenume: " + prenume + "Nationalitate: " + nationalitate + "Rating: " + rating;
+    }
 }

@@ -48,4 +48,7 @@ public class Restaurant {
         this.categorie = categorie;
     }
 
+    public String toString() {
+        return "Nume: " + nume + "Strada: " + strada + "Oras: " + oras + "Categorie: " + categorie;
+    }
 }

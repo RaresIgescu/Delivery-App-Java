@@ -57,4 +57,7 @@ public class User {
         this.strada = strada;
     }
 
+    public String toString() {
+        return "Nume: " + nume + "Prenume: " + prenume + "Varsta: " + varsta + "Oras: " + oras + "Strada: " + strada;
+    }
 }
