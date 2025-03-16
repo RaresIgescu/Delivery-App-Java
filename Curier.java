@@ -49,6 +49,6 @@ public class Curier {
     }
 
     public String toString() {
-        return "Nume: " + nume + "Prenume: " + prenume + "Nationalitate: " + nationalitate + "Rating: " + rating;
+        return "Nume: " + nume + "\nPrenume: " + prenume + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
     }
 }

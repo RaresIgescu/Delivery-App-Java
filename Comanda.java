@@ -49,4 +49,8 @@ public class Comanda {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String toString() {
+        return "Produse: " + produse + "\nPret: " + pretTotal + "\nData: " + data + "\nStatus: " + status;
+    }
 }

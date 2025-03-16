@@ -58,6 +58,6 @@ public class User {
     }
 
     public String toString() {
-        return "Nume: " + nume + "Prenume: " + prenume + "Varsta: " + varsta + "Oras: " + oras + "Strada: " + strada;
+        return "Nume: " + nume + "\nPrenume: " + prenume + "\nVarsta: " + varsta + "\nOras: " + oras + "\nStrada: " + strada;
     }
 }

@@ -23,7 +23,6 @@ public class Main {
         System.out.println("18. Anulare comanda.");
 
         //Lista temporara de obiecte pentru proiect:
-        //Comanda - produse, status, data, pret total
         //Review - rating, comentariuRes, comCurier
         //Cos de cumparaturi - lista de produse, total de plata
         //Card de credit - numar card, data expirarii
