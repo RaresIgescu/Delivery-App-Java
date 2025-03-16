@@ -27,7 +27,6 @@ public class Main {
         //Restaurant - nume, categorie, adresa
         //Produs - nume, pret, disponibilitate
         //Comanda - produse, status, data, pret total
-        //Curier - nume, rating
         //Review - rating, comentariuRes, comCurier
         //Cos de cumparaturi - lista de produse, total de plata
         //Card de credit - numar card, data expirarii
