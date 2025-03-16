@@ -21,5 +21,16 @@ public class Main {
         System.out.println("16. Adaugare card de credit.");
         System.out.println("17. Sterge card de credit.");
         System.out.println("18. Anulare comanda.");
+
+        //Lista temporara de obiecte pentru proiect:
+        //User - nume, email, adresa etc
+        //Restaurant - nume, categorie, adresa
+        //Produs - nume, pret, disponibilitate
+        //Comanda - produse, status, data, pret total
+        //Curier - nume, rating
+        //Review - rating, comentariuRes, comCurier
+        //Cos de cumparaturi - lista de produse, total de plata
+        //Card de credit - numar card, data expirarii
+
     }
 }
