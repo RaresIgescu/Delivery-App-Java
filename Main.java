@@ -30,6 +30,5 @@ public class Main {
         //Review - rating, comentariuRes, comCurier
         //Cos de cumparaturi - lista de produse, total de plata
         //Card de credit - numar card, data expirarii
-
     }
 }
