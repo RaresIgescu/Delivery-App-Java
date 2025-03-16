@@ -23,8 +23,6 @@ public class Main {
         System.out.println("18. Anulare comanda.");
 
         //Lista temporara de obiecte pentru proiect:
-        //User - nume, email, adresa etc
-        //Restaurant - nume, categorie, adresa
         //Produs - nume, pret, disponibilitate
         //Comanda - produse, status, data, pret total
         //Review - rating, comentariuRes, comCurier
