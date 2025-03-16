@@ -1,39 +1,12 @@
-public class Curier {
-    private int id;
-    private String nume;
-    private String prenume;
+public class Curier extends Persoana {
     private String nationalitate;
     private float rating;
 
     public Curier(int id, String nume, String prenume, String nationalitate, float rating) {
-        this.id = id;
-        this.nume = nume;
-        this.prenume = prenume;
+        super(id, nume, prenume);
         this.nationalitate = nationalitate;
         this.rating = rating;
     }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNume() {
-        return nume;
-    }
-    public void setNume(String nume) {
-        this.nume = nume;
-    }
-
-    public String getPrenume() {
-        return prenume;
-    }
-    public void setPrenume(String prenume) {
-        this.prenume = prenume;
-    }
-
     public String getNationalitate() {
         return nationalitate;
     }
@@ -49,6 +22,6 @@ public class Curier {
     }
 
     public String toString() {
-        return "Nume: " + nume + "\nPrenume: " + prenume + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
+        return super.toString() + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
     }
 }
