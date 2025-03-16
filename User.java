@@ -1,39 +1,13 @@
-public class User {
-    private int id;
-    private String nume;
-    private String prenume;
+public class User extends Persoana {
     private int varsta;
     private String oras;
     private String strada;
 
     public User(int id, String nume, String prenume, int varsta, String oras, String strada) {
-        this.id = id;
-        this.nume = nume;
-        this.prenume = prenume;
+        super(id, nume, prenume);
         this.varsta = varsta;
         this.oras = oras;
         this.strada = strada;
-    }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNume() {
-        return nume;
-    }
-    public void setNume(String nume) {
-        this.nume = nume;
-    }
-
-    public String getPrenume() {
-        return prenume;
-    }
-    public void setPrenume(String prenume) {
-        this.prenume = prenume;
     }
 
     public int getVarsta() {
@@ -58,6 +32,6 @@ public class User {
     }
 
     public String toString() {
-        return "Nume: " + nume + "\nPrenume: " + prenume + "\nVarsta: " + varsta + "\nOras: " + oras + "\nStrada: " + strada;
+        return super.toString() + "\nVarsta: " + varsta + "\nOras: " + oras + "\nStrada: " + strada;
     }
 }
