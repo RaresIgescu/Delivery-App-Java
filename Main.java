@@ -90,6 +90,8 @@ public class Main {
                 default:
                     System.out.println("Optiune invalida");
             }
+            System.out.println();
         }
+        scan.close();
     }
 }
