@@ -1,6 +1,4 @@
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Service {
     private List<User> users;
@@ -13,4 +11,19 @@ public class Service {
     private Map<User, List<Comanda>> comenzi;
     private Map<User, List<cardCredit>> carduriSalvate;
     private Map<User, List<Review>> reviews;
+
+    public Service() {
+        users = new ArrayList<User>();
+        restaurants = new HashSet<Restaurant>();
+        meniuri = new HashMap<>();
+        reviewRestaurant = new HashMap<>();
+        reviewCurier = new HashMap<>();
+        curieri = new HashSet<>();
+        cos = new HashMap<>();
+        comenzi = new HashMap<>();
+        carduriSalvate = new HashMap<>();
+        reviews = new HashMap<>();
+    }
+
+
 }
