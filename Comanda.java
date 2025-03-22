@@ -5,14 +5,12 @@ public class Comanda {
     private List<Produs> produse;
     private float pretTotal;
     private String data;
-    private String status;
 
     public Comanda(int id, List<Produs> produse, float pretTotal, String data, String status) {
         this.id = id;
         this.produse = produse;
         this.pretTotal = pretTotal;
         this.data = data;
-        this.status = status;
     }
 
     public int getId() {
@@ -43,14 +41,7 @@ public class Comanda {
         this.data = data;
     }
 
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String toString() {
-        return "Produse: " + produse + "\nPret: " + pretTotal + "\nData: " + data + "\nStatus: " + status;
+        return "Produse: " + produse + "\nPret: " + pretTotal + "\nData: " + data;
     }
 }
