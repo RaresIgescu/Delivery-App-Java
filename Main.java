@@ -26,58 +26,39 @@ public class Main {
 
             switch(optiune) {
                 case 1:
-                    System.out.println("Vizualizare date personale.");
-                    break;
-                case 2:
-                    System.out.println("Vizualizare restaurante.");
-                    break;
-                case 3:
                     System.out.println("Vizualizare meniu.");
                     break;
+                case 2:
+                    System.out.println("Vizualare foste comenzi.");
+                    break;
+                case 3:
+                    System.out.println("Vizualare cos de cumparaturi.");
+                    break;
                 case 4:
-                    System.out.println("Vizualizare foste comenzi.");
-                    break;
-                case 5:
-                    System.out.println("Vizualizare cos de cumparaturi.");
-                    break;
-                case 6:
-                    System.out.println("Vizualizare carduri de credit.");
-                    break;
-                case 7:
                     System.out.println("Filtrare restaurante dupa tip.");
                     break;
+                case 5:
+                    System.out.println("Modificare date personale.");
+                    break;
+                case 6:
+                    System.out.println("Adaugare produse in cos");
+                    break;
+                case 7:
+                    System.out.println("Plasare comanda");
+                    break;
                 case 8:
-                    System.out.println("Creare cont");
+                    System.out.println("Adaugare card de credit in memorie.");
                     break;
                 case 9:
-                    System.out.println("Login/Logout");
+                    System.out.println("Adaugare review pentru restaurant.");
                     break;
                 case 10:
-                    System.out.println("Adaugare produs in cos.");
+                    System.out.println("Adaugare review pentru curier.");
                     break;
                 case 11:
-                    System.out.println("Plasare comanda.");
-                    break;
-                case 12:
-                    System.out.println("Modificare adresa comanda.");
-                    break;
-                case 13:
-                    System.out.println("Adaugare review.");
-                    break;
-                case 14:
-                    System.out.println("Editare review.");
-                    break;
-                case 15:
-                    System.out.println("Sterge Review.");
-                    break;
-                case 16:
-                    System.out.println("Adaugare card de credit.");
-                    break;
-                case 17:
-                    System.out.println("Sterge card de credit.");
+                    System.out.println("Sterge comanda din memorie.");
                     break;
                 case 0:
-                    System.out.println("Iesire...");
                     ok = false;
                     break;
                 default:
