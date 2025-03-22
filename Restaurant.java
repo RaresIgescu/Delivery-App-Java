@@ -52,11 +52,11 @@ public class Restaurant {
         this.categorie = categorie;
     }
 
-    public List<Review> getReview() {
+    public List<Review> getReviews() {
         return reviews;
     }
-    public void setReview(List<Review> review) {
-        this.reviews = review;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public String toString() {
