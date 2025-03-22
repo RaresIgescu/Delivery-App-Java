@@ -1,6 +1,5 @@
 public class User extends Persoana {
     private int varsta;
-    private String parola;
     private String oras;
     private String strada;
 
