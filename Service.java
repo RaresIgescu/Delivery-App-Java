@@ -11,7 +11,11 @@ public class Service {
 
     public Service() {
         this.user = null;
+
         this.restaurants = new HashSet<>();
+        this.restaurants.add(new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
+                        Arrays.asList(new Review(1, 5, "Foarte bun"),
+                                      new Review(2, 2, "Am gasit par in mancare"))));
         this.meniuri = new HashMap<>();
         this.curieri = new HashSet<>();
         this.cos = null;
