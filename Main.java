@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Service service = new Service();
         Scanner scan = new Scanner(System.in);
+
+        System.out.println("Bune aveti veni pe placeIT, cea mai noua platforma de food delivery!");
+        System.out.println("Mai intai de toate va rog sa va introduceti datele personale: ");
+        service.setareDatePersonale();
+
         boolean ok = true;
         while(ok) {
-            System.out.println("Bune aveti veni pe placeIT, cea mai noua platforma de food delivery!");
-            System.out.println("Mai intai de toate va rog sa va introduceti datele personale: ");
-            setareDatePersole();
             System.out.println("Interogari:");
             System.out.println("1. Vizualizare date personale.");
             System.out.println("2. Vizualizare meniu.");
@@ -30,36 +33,40 @@ public class Main {
 
             switch(optiune) {
                 case 1:
-                    System.out.println("Vizualizare meniu.");
+                    System.out.println("Acestea sunt datele dumneavoastra personale: ");
+                    service.vizualzareDatePersonale();
                     break;
                 case 2:
-                    System.out.println("Vizualare foste comenzi.");
+                    System.out.println("Vizualizare meniu.");
                     break;
                 case 3:
-                    System.out.println("Vizualare cos de cumparaturi.");
+                    System.out.println("Vizualare foste comenzi.");
                     break;
                 case 4:
-                    System.out.println("Filtrare restaurante dupa tip.");
+                    System.out.println("Vizualare cos de cumparaturi.");
                     break;
                 case 5:
-                    System.out.println("Modificare date personale.");
+                    System.out.println("Filtrare restaurante dupa tip.");
                     break;
                 case 6:
-                    System.out.println("Adaugare produse in cos");
+                    System.out.println("Modificare date personale.");
                     break;
                 case 7:
-                    System.out.println("Plasare comanda");
+                    System.out.println("Adaugare produse in cos");
                     break;
                 case 8:
-                    System.out.println("Adaugare card de credit in memorie.");
+                    System.out.println("Plasare comanda");
                     break;
                 case 9:
-                    System.out.println("Adaugare review pentru restaurant.");
+                    System.out.println("Adaugare card de credit in memorie.");
                     break;
                 case 10:
-                    System.out.println("Adaugare review pentru curier.");
+                    System.out.println("Adaugare review pentru restaurant.");
                     break;
                 case 11:
+                    System.out.println("Adaugare review pentru curier.");
+                    break;
+                case 12:
                     System.out.println("Sterge comanda din memorie.");
                     break;
                 case 0:
