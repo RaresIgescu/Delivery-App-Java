@@ -5,12 +5,14 @@ public class Comanda {
     private List<Produs> produse;
     private float pretTotal;
     private String data;
+    private Curier curier;
 
-    public Comanda(int id, List<Produs> produse, float pretTotal, String data, String status) {
+    public Comanda(int id, List<Produs> produse, float pretTotal, String data, Curier curier) {
         this.id = id;
         this.produse = produse;
         this.pretTotal = pretTotal;
         this.data = data;
+        this.curier = curier;
     }
 
     public int getId() {
@@ -39,6 +41,13 @@ public class Comanda {
     }
     public void setData(String data) {
         this.data = data;
+    }
+
+    public Curier getCurier() {
+        return curier;
+    }
+    public void setCurier(Curier curier) {
+        this.curier = curier;
     }
 
     public String toString() {
