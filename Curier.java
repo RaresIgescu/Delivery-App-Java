@@ -4,10 +4,10 @@ public class Curier extends Persoana {
     private String nationalitate;
     private List<Review> reviews;
 
-    public Curier(int id, String nume, String prenume, String nationalitate, List<Review> review) {
+    public Curier(int id, String nume, String prenume, String nationalitate, List<Review> reviews) {
         super(id, nume, prenume);
         this.nationalitate = nationalitate;
-        this.reviews = review;
+        this.reviews = reviews;
     }
     public String getNationalitate() {
         return nationalitate;
@@ -16,14 +16,14 @@ public class Curier extends Persoana {
         this.nationalitate = nationalitate;
     }
 
-    public List<Review> getReview() {
+    public List<Review> getReviews() {
         return reviews;
     }
-    public void setReview(List<Review> review) {
-        this.reviews = review;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public String toString() {
-        return super.toString() + "\nNationalitate: " + nationalitate + "\nReviews: " + review;
+        return super.toString() + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
     }
 }
