@@ -18,4 +18,7 @@ public class Service {
         this.comenzi = new ArrayList<>();
         this.carduri = new HashSet<>();
     }
+    void setareDatePersonale() {
+
+    }
 }
