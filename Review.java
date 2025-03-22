@@ -1,16 +1,12 @@
 public class Review {
     private int id;
-    private int scorRestaurant;
-    private String comentariuRestaurant;
-    private int scorCurier;
-    private String comentariuCurier;
+    private float scor;
+    private String comentariu;
 
-    public Review(int id, int scorRestaurant, String comentariuRestaurant, int scorCurier, String comentariuCurier) {
+    public Review(int id, float scor, String comentariu) {
         this.id = id;
-        this.scorRestaurant = scorRestaurant;
-        this.comentariuRestaurant = comentariuRestaurant;
-        this.scorCurier = scorCurier;
-        this.comentariuCurier = comentariuCurier;
+        this.scor = scor;
+        this.comentariu = comentariu;
     }
 
     public int getId() {
@@ -20,35 +16,22 @@ public class Review {
         this.id = id;
     }
 
-    public int getScorRestaurant() {
-        return scorRestaurant;
+    public float getScore() {
+        return scor;
     }
-    public void setScorRestaurant(int scorRestaurant) {
-        this.scorRestaurant = scorRestaurant;
-    }
-
-    public String getComentariuRestaurant() {
-        return comentariuRestaurant;
-    }
-    public void setComentariuRestaurant(String comentariuRestaurant) {
-        this.comentariuRestaurant = comentariuRestaurant;
+    public void setScore(float scor) {
+        this.scor = scor;
     }
 
-    public int getScorCurier() {
-        return scorCurier;
+    public String getComentariu() {
+        return comentariu;
     }
-    public void setScorCurier(int scorCurier) {
-        this.scorCurier = scorCurier;
+    public void setComentariu(String comentariu) {
+        this.comentariu = comentariu;
     }
 
-    public String getComentariuCurier() {
-        return comentariuCurier;
-    }
-    public void setComentariuCurier(String comentariuCurier) {
-        this.comentariuCurier = comentariuCurier;
-    }
 
     public String toString() {
-        return "scorRestaurant: " + scorRestaurant + "\ncomentariuRestaurant: " + comentariuRestaurant + "\nscorCurier: " + scorCurier + "\nComentariuCurier: " + comentariuCurier;
+        return "Scor: " + scor + "\nComentariu: " + comentariu;
     }
 }
