@@ -5,20 +5,24 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         boolean ok = true;
         while(ok) {
+            System.out.println("Bune aveti veni pe placeIT, cea mai noua platforma de food delivery!");
+            System.out.println("Mai intai de toate va rog sa va introduceti datele personale: ");
+            setareDatePersole();
             System.out.println("Interogari:");
-            System.out.println("1. Vizualizare meniu.");
-            System.out.println("2. Vizualizare foste comenzi.");
-            System.out.println("3. Vizualizare cos de cumparaturi.");
-            System.out.println("4. Filtrare restaurante dupa tip.");
+            System.out.println("1. Vizualizare date personale.");
+            System.out.println("2. Vizualizare meniu.");
+            System.out.println("3. Vizualizare foste comenzi.");
+            System.out.println("4. Vizualizare cos de cumparaturi.");
+            System.out.println("5. Filtrare restaurante dupa tip.");
             System.out.println();
             System.out.println("Actiuni:");
-            System.out.println("5. Modificare date personale.");
-            System.out.println("6. Adaugare produs in cos.");
-            System.out.println("7. Plasare comanda.");
-            System.out.println("8. Adaugare card de credit in memorie.");
-            System.out.println("9. Adaugare review pentru un restaurant.");
-            System.out.println("10. Adaugare review pentru curier.");
-            System.out.println("11. Sterge o comanda din memorie.");
+            System.out.println("6. Modificare date personale.");
+            System.out.println("7. Adaugare produs in cos.");
+            System.out.println("8. Plasare comanda.");
+            System.out.println("9. Adaugare card de credit in memorie.");
+            System.out.println("10. Adaugare review pentru un restaurant.");
+            System.out.println("11. Adaugare review pentru curier.");
+            System.out.println("12. Sterge o comanda din memorie.");
             System.out.println("0. Iesire");
 
             System.out.println("Alege o optiune: ");
