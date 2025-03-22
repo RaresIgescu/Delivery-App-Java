@@ -16,6 +16,9 @@ public class Main {
             System.out.println("6. Adaugare produs in cos.");
             System.out.println("7. Plasare comanda.");
             System.out.println("8. Adaugare card de credit in memorie.");
+            System.out.println("9. Adaugare review pentru un restaurant.");
+            System.out.println("10. Adaugare review pentru curier.");
+            System.out.println("11. Sterge o comanda din memorie.");
             System.out.println("0. Iesire");
 
             System.out.println("Alege o optiune: ");
