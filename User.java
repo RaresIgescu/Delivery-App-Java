@@ -10,12 +10,6 @@ public class User extends Persoana {
         this.strada = strada;
     }
 
-    public String getParola() {
-        return parola;
-    }
-    public void setParola(String parola) {
-        this.parola = parola;
-    }
 
     public int getVarsta() {
         return varsta;
