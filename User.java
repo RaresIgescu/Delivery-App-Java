@@ -1,5 +1,6 @@
 public class User extends Persoana {
     private int varsta;
+    private String parola;
     private String oras;
     private String strada;
 
@@ -8,6 +9,13 @@ public class User extends Persoana {
         this.varsta = varsta;
         this.oras = oras;
         this.strada = strada;
+    }
+
+    public String getParola() {
+        return parola;
+    }
+    public void setParola(String parola) {
+        this.parola = parola;
     }
 
     public int getVarsta() {
