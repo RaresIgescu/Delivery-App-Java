@@ -10,7 +10,6 @@ public class User extends Persoana {
         this.strada = strada;
     }
 
-
     public int getVarsta() {
         return varsta;
     }
