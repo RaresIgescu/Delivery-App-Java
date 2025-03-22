@@ -1,16 +1,20 @@
+import java.util.List;
+
 public class Restaurant {
     private int id;
     private String nume;
     private String strada;
     private String oras;
     private String categorie;
+    private List<Review> reviews;
 
-    public Restaurant(int id, String nume, String strada, String oras, String categorie) {
+    public Restaurant(int id, String nume, String strada, String oras, String categorie, List<Review> reviews) {
         this.id = id;
         this.nume = nume;
         this.strada = strada;
         this.oras = oras;
         this.categorie = categorie;
+        this.reviews = reviews;
     }
 
     public int getId() {
@@ -46,6 +50,13 @@ public class Restaurant {
     }
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    public List<Review> getReview() {
+        return reviews;
+    }
+    public void setReview(List<Review> review) {
+        this.reviews = review;
     }
 
     public String toString() {

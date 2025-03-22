@@ -1,11 +1,13 @@
+import java.util.List;
+
 public class Curier extends Persoana {
     private String nationalitate;
-    private float rating;
+    private List<Review> reviews;
 
-    public Curier(int id, String nume, String prenume, String nationalitate, float rating) {
+    public Curier(int id, String nume, String prenume, String nationalitate, List<Review> review) {
         super(id, nume, prenume);
         this.nationalitate = nationalitate;
-        this.rating = rating;
+        this.reviews = review;
     }
     public String getNationalitate() {
         return nationalitate;
@@ -14,14 +16,14 @@ public class Curier extends Persoana {
         this.nationalitate = nationalitate;
     }
 
-    public float getRating() {
-        return rating;
+    public List<Review> getReview() {
+        return reviews;
     }
-    public void setRating(float rating) {
-        this.rating = rating;
+    public void setReview(List<Review> review) {
+        this.reviews = review;
     }
 
     public String toString() {
-        return super.toString() + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
+        return super.toString() + "\nNationalitate: " + nationalitate + "\nReviews: " + review;
     }
 }
