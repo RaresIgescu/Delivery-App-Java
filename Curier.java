@@ -24,6 +24,6 @@ public class Curier extends Persoana {
     }
 
     public String toString() {
-        return super.toString() + "\nNationalitate: " + nationalitate + "\nRating: " + rating;
+        return super.toString() + "\nNationalitate: " + nationalitate + "\nReviews: " + reviews;
     }
 }
