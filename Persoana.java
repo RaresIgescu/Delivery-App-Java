@@ -31,6 +31,6 @@ public class Persoana {
     }
 
     public String toString() {
-        return "Nume: " + nume + "\nPrenume: " + prenume;
+        return "Nume: \t\t" + nume + "\nPrenume: \t" + prenume;
     }
 }
