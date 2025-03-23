@@ -52,7 +52,7 @@ public class Main {
                     service.setareDatePersonale();
                     break;
                 case 7:
-                    System.out.println("Adaugare produse in cos");
+                    service.adaugareProdusInCos();
                     break;
                 case 8:
                     System.out.println("Plasare comanda");

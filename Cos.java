@@ -3,9 +3,9 @@ import java.util.List;
 public class Cos {
     private int id;
     private List<Produs> produse;
-    private int totalDePlata;
+    private double totalDePlata;
 
-    public Cos(int id, List<Produs> produse, int totalDePlata) {
+    public Cos(int id, List<Produs> produse, double totalDePlata) {
         this.id = id;
         this.produse = produse;
         this.totalDePlata = totalDePlata;
@@ -25,14 +25,18 @@ public class Cos {
         this.produse = produse;
     }
 
-    public int getTotalDePlata() {
+    public double getTotalDePlata() {
         return totalDePlata;
     }
-    public void setTotalDePlata(int totalDePlata) {
+    public void setTotalDePlata(double totalDePlata) {
         this.totalDePlata = totalDePlata;
     }
 
     public String toString() {
-        return "Produse: " + produse + "\nTotal de plata: " + totalDePlata;
+        for(Produs p : produse) {
+            System.out.println(p.toString());
+            System.out.println();
+        }
+        return "Total de plata: " + totalDePlata;
     }
 }
