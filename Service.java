@@ -13,10 +13,59 @@ public class Service {
         this.user = null;
 
         this.restaurants = new HashSet<>();
-        this.restaurants.add(new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
-                        Arrays.asList(new Review(1, 5, "Foarte bun"),
-                                      new Review(2, 2, "Am gasit par in mancare"))));
+
+        Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
+                Arrays.asList(
+                        new Review(1, 5, "Foarte bun."),
+                        new Review(2, 2, "Am gasit par in mancare.")
+                )
+        );
+
+        Restaurant linea = new Restaurant(2, "Linea", "Calea Stefan cel Mare", "Iasi", "Romanesc",
+                Arrays.asList(
+                        new Review(1, 4, "Mancare delicioasa dar foarte zgomotos.")
+                )
+        );
+
+        Restaurant big5 = new Restaurant(3, "Big 5", "Cerbului", "Sibiu", "American",
+                new ArrayList<>()
+        );
+
+        this.restaurants.add(aveForchetta);
+        this.restaurants.add(linea);
+        this.restaurants.add(big5);
+
+
         this.meniuri = new HashMap<>();
+
+        List<Produs> produseAveForchetta = Arrays.asList(
+                new Produs(1, "Pizza Margherita", 35.0, "Disponibil!"),
+                new Produs(2, "Paste Carbonara", 40.0, "Disponibil!"),
+                new Produs(3, "Canoli cu Fistic", 22.50, "Valabil de la 22.04.2025!")
+        );
+
+        List<Produs> produseLinea = Arrays.asList(
+                new Produs(3, "Ciorba de burta", 30.20, "Indisponibil"),
+                new Produs(4, "Sarmale cu mamaliga", 45.70, "Disponibil!"),
+                new Produs(5, "Mici la gratar cu mustar", 28.90, "Disponibil!")
+        );
+
+        List<Produs> produseBig5 = Arrays.asList(
+                new Produs(5, "Burger American", 50.0, "Disponibil!"),
+                new Produs(6, "Coaste BBQ", 70.0, "Disponibil!"),
+                new Produs(7, "Clatite pufoase", 35.50, "Disponibil de la 30.06.2025")
+        );
+
+        for (Restaurant r : this.restaurants) {
+            if (r.getNume().equals("AveForchetta")) {
+                this.meniuri.put(r, produseAveForchetta);
+            } else if (r.getNume().equals("Linea")) {
+                this.meniuri.put(r, produseLinea);
+            } else if (r.getNume().equals("Big 5")) {
+                this.meniuri.put(r, produseBig5);
+            }
+        }
+
         this.curieri = new HashSet<>();
         this.cos = null;
         this.comenzi = new ArrayList<>();
