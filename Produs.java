@@ -1,10 +1,10 @@
 public class Produs {
     private int id;
     private String nume;
-    private float pret;
+    private double pret;
     private String disponibilitate;
 
-    public Produs(int id, String nume, float pret, String disponibilitate) {
+    public Produs(int id, String nume, double pret, String disponibilitate) {
         this.id = id;
         this.nume = nume;
         this.pret = pret;
@@ -25,10 +25,10 @@ public class Produs {
         this.nume = nume;
     }
 
-    public float getPret() {
+    public double getPret() {
         return pret;
     }
-    public void setPret(float pret) {
+    public void setPret(double pret) {
         this.pret = pret;
     }
 
