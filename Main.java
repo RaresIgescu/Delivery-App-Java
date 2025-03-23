@@ -49,7 +49,7 @@ public class Main {
                     System.out.println("Filtrare restaurante dupa tip.");
                     break;
                 case 6:
-                    System.out.println("Modificare date personale.");
+                    service.setareDatePersonale();
                     break;
                 case 7:
                     System.out.println("Adaugare produse in cos");
