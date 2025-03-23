@@ -55,7 +55,7 @@ public class Main {
                     service.adaugareProdusInCos();
                     break;
                 case 8:
-                    System.out.println("Plasare comanda");
+                    service.plasareComanda();
                     break;
                 case 9:
                     System.out.println("Adaugare card de credit in memorie.");

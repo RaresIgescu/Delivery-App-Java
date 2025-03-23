@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.*;
 
 public class Service {
@@ -200,6 +201,29 @@ public class Service {
         }
         this.cos = new Cos(1, produse, total);
         vizualizareCos();
+    }
+
+    public void plasareComanda() {
+        Scanner scanner = new Scanner(System.in);
+        Comanda comandaPlasata = null;
+        if(this.cos.nrProduse() == 0) {
+            System.out.println("Cosul de cumparaturi este gol.");
+            System.out.println("Mai intai adauga produse in cos si mai apoi poti plasa comanda.");
+        } else {
+            vizualizareCos();
+            System.out.println("Sunteti multumit cu starea cosului de cumparaturi?");
+            String optiune = scanner.nextLine();
+            switch(optiune) {
+                case "Da":
+                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), new Curier(1, "Rares", "Igescu", "Roman", Arrays.asList()));
+                    comenzi.add(comandaPlasata);
+                    for(Comanda c : comenzi) {
+                        System.out.println(c.toString());
+                    }
+                    break;
+            }
+        }
+
     }
 
 }

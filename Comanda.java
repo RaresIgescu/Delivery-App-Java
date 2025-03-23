@@ -53,7 +53,7 @@ public class Comanda {
 
     public String toString() {
         for(Produs p : produse)
-            produse.toString();
+            System.out.println(p.toString());
         return "\nPret: " + pretTotal + "\nData: " + data;
     }
 }
