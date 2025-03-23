@@ -4,11 +4,11 @@ import java.time.LocalDate;
 public class Comanda {
     private int id;
     private List<Produs> produse;
-    private float pretTotal;
+    private double pretTotal;
     private LocalDate data;
     private Curier curier;
 
-    public Comanda(int id, List<Produs> produse, float pretTotal, LocalDate data, Curier curier) {
+    public Comanda(int id, List<Produs> produse, double pretTotal, LocalDate data, Curier curier) {
         this.id = id;
         this.produse = produse;
         this.pretTotal = pretTotal;
@@ -30,10 +30,10 @@ public class Comanda {
         this.produse = produse;
     }
 
-    public float getPretTotal() {
+    public double getPretTotal() {
         return pretTotal;
     }
-    public void setPretTotal(float pretTotal) {
+    public void setPretTotal(double pretTotal) {
         this.pretTotal = pretTotal;
     }
 
@@ -52,6 +52,8 @@ public class Comanda {
     }
 
     public String toString() {
-        return "Produse: " + produse + "\nPret: " + pretTotal + "\nData: " + data;
+        for(Produs p : produse)
+            produse.toString();
+        return "\nPret: " + pretTotal + "\nData: " + data;
     }
 }
