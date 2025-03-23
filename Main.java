@@ -37,7 +37,7 @@ public class Main {
                     service.vizualzareDatePersonale();
                     break;
                 case 2:
-                    System.out.println("Vizualizare meniu.");
+                    service.vizualizareMeniu();
                     break;
                 case 3:
                     System.out.println("Vizualare foste comenzi.");

@@ -2,17 +2,17 @@ import java.util.*;
 
 public class Service {
     private User user;
-    private Set<Restaurant> restaurants;
-    private Map<Restaurant, List<Produs>> meniuri;
-    private Set<Curier> curieri;
-    private Cos cos;
-    private List<Comanda> comenzi;
-    private Set<cardCredit> carduri;
+    private final Set<Restaurant> restaurants;
+    private final Map<Restaurant, List<Produs>> meniuri;
+    private final Set<Curier> curieri;
+    private final Cos cos;
+    private final List<Comanda> comenzi;
+    private final Set<cardCredit> carduri;
 
     public Service() {
         this.user = null;
 
-        this.restaurants = new HashSet<>();
+        this.restaurants = new LinkedHashSet<>();
 
         Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
                 Arrays.asList(
@@ -36,7 +36,7 @@ public class Service {
         this.restaurants.add(big5);
 
 
-        this.meniuri = new HashMap<>();
+        this.meniuri = new LinkedHashMap<>();
 
         List<Produs> produseAveForchetta = Arrays.asList(
                 new Produs(1, "Pizza Margherita", 35.0, "Disponibil!"),
@@ -57,12 +57,10 @@ public class Service {
         );
 
         for (Restaurant r : this.restaurants) {
-            if (r.getNume().equals("AveForchetta")) {
-                this.meniuri.put(r, produseAveForchetta);
-            } else if (r.getNume().equals("Linea")) {
-                this.meniuri.put(r, produseLinea);
-            } else if (r.getNume().equals("Big 5")) {
-                this.meniuri.put(r, produseBig5);
+            switch (r.getNume()) {
+                case "AveForchetta" -> this.meniuri.put(r, produseAveForchetta);
+                case "Linea" -> this.meniuri.put(r, produseLinea);
+                case "Big 5" -> this.meniuri.put(r, produseBig5);
             }
         }
 
@@ -98,5 +96,17 @@ public class Service {
 
     public void vizualzareDatePersonale() {
         System.out.println(user.toString());
+    }
+
+    public void vizualizareMeniu() {
+        for(Restaurant r : this.restaurants) {
+            System.out.println("Meniul restaurantului " + r.getNume());
+            List<Produs> produse = this.meniuri.get(r);
+            for(Produs p : produse) {
+                System.out.println(p.toString());
+                System.out.println();
+            }
+            System.out.println();
+        }
     }
 }
