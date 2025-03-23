@@ -1,13 +1,14 @@
 import java.util.List;
+import java.time.LocalDate;
 
 public class Comanda {
     private int id;
     private List<Produs> produse;
     private float pretTotal;
-    private String data;
+    private LocalDate data;
     private Curier curier;
 
-    public Comanda(int id, List<Produs> produse, float pretTotal, String data, Curier curier) {
+    public Comanda(int id, List<Produs> produse, float pretTotal, LocalDate data, Curier curier) {
         this.id = id;
         this.produse = produse;
         this.pretTotal = pretTotal;
@@ -36,10 +37,10 @@ public class Comanda {
         this.pretTotal = pretTotal;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
