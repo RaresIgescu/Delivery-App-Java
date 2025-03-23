@@ -32,6 +32,6 @@ public class User extends Persoana {
     }
 
     public String toString() {
-        return super.toString() + "\nVarsta: " + varsta + "\nOras: " + oras + "\nStrada: " + strada;
+        return super.toString() + "\nVarsta: \t" + varsta + "\nOras: \t\t" + oras + "\nStrada: \t" + strada;
     }
 }
