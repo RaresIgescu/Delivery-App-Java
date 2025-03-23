@@ -18,6 +18,10 @@ public class Cos {
         this.id = id;
     }
 
+    public int nrProduse() {
+        return produse.size();
+    }
+
     public List<Produs> getProduse() {
         return produse;
     }

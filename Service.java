@@ -135,6 +135,15 @@ public class Service {
         }
     }
 
+    public void vizualizareCos() {
+        if(this.cos.nrProduse() == 0) {
+            System.out.println("Cosul de cumparaturi este gol.");
+        } else {
+            System.out.println("Asa arata cosul dumneavoastra:");
+            System.out.println(this.cos.toString());
+        }
+    }
+
     public void adaugareProdusInCos() {
         Scanner scanner = new Scanner(System.in);
         double total = 0.0;
@@ -164,14 +173,14 @@ public class Service {
         }
 
         meniu = this.meniuri.get(restaurantAles);
-        System.out.println("Alege produsul.");
+        System.out.println("Alegere produsul.");
         for(Produs p : meniu) {
             System.out.println(p.toString());
         }
 
         optiune = scanner.nextInt();
         while(optiune < 1 || optiune > 3) {
-            System.out.println("Alege invalida!");
+            System.out.println("Alegere invalida!");
             optiune = scanner.nextInt();
             scanner.nextLine();
         }
@@ -190,7 +199,7 @@ public class Service {
             total += p.getPret();
         }
         this.cos = new Cos(1, produse, total);
-        System.out.println("Asa arata cosul dumneavoastra:");
-        System.out.println(this.cos.toString());
+        vizualizareCos();
     }
+
 }

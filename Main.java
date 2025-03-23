@@ -43,7 +43,7 @@ public class Main {
                     System.out.println("Vizualare foste comenzi.");
                     break;
                 case 4:
-                    System.out.println("Vizualare cos de cumparaturi.");
+                    service.vizualizareCos();
                     break;
                 case 5:
                     System.out.println("Filtrare restaurante dupa tip.");
