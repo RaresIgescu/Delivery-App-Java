@@ -77,19 +77,40 @@ public class Service {
 
         System.out.println("Introduceti un nume: ");
         String nume = scanner.nextLine();
+        while (nume.length() > 25) {
+            System.out.println("Numele este prea lung! Introduceti alt nume");
+            nume = scanner.nextLine();
+        }
 
         System.out.println("Introduceti un prenume: ");
         String prenume = scanner.nextLine();
+        while (prenume.length() > 20) {
+            System.out.println("Prenumele este prea lung! Introduceti alt prenume");
+            prenume = scanner.nextLine();
+        }
 
         System.out.println("Introduceti o varsta: ");
         int varsta = scanner.nextInt();
         scanner.nextLine();
+        while(varsta > 100 || varsta < 16) {
+            System.out.println("Varsta invalida! Introduceti o varsta intre 16 si 100");
+            varsta = scanner.nextInt();
+            scanner.nextLine();
+        }
 
         System.out.println("Introduceti un oras: ");
         String oras = scanner.nextLine();
+        while(oras.length() > 30) {
+            System.out.println("Lungime a orasului invalida! Mai incercati");
+            oras = scanner.nextLine();
+        }
 
         System.out.println("Introduceti o strada: ");
         String strada = scanner.nextLine();
+        while(strada.length() > 40) {
+            System.out.println("Strada invalida! Mai incercati");
+            strada = scanner.nextLine();
+        }
 
         user = new User(id, nume, prenume, varsta, oras, strada);
     }
