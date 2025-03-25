@@ -30,6 +30,7 @@ public class Main {
 
             System.out.println("Alege o optiune: ");
             int optiune = scan.nextInt();
+            scan.nextLine();
 
             switch(optiune) {
                 case 1:
@@ -74,6 +75,10 @@ public class Main {
                     break;
                 default:
                     System.out.println("Optiune invalida");
+            }
+            if (ok) {
+                System.out.println("\nApasati ENTER pentru a reveni la meniu...");
+                scan.nextLine();
             }
             System.out.println();
         }
