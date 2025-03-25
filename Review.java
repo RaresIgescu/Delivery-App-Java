@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Review {
     private int id;
     private double scor;
@@ -30,8 +32,8 @@ public class Review {
         this.comentariu = comentariu;
     }
 
-
     public String toString() {
-        return "Scor: " + scor + "\nComentariu: " + comentariu;
+        return "\nScor: " + scor + "\nComentariu: " + comentariu + "\n";
     }
+
 }
