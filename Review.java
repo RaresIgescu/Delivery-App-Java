@@ -1,9 +1,9 @@
 public class Review {
     private int id;
-    private float scor;
+    private double scor;
     private String comentariu;
 
-    public Review(int id, float scor, String comentariu) {
+    public Review(int id, double scor, String comentariu) {
         this.id = id;
         this.scor = scor;
         this.comentariu = comentariu;
@@ -16,10 +16,10 @@ public class Review {
         this.id = id;
     }
 
-    public float getScore() {
+    public double getScore() {
         return scor;
     }
-    public void setScore(float scor) {
+    public void setScore(double scor) {
         this.scor = scor;
     }
 
