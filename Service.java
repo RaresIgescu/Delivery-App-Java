@@ -221,9 +221,16 @@ public class Service {
                         System.out.println(c.toString());
                     }
                     break;
+                case "Nu":
+
             }
         }
+    }
 
+    public void vizualizareFosteComenzi() {
+        System.out.println("Acestea sunt comenzile dumneavoastra pana la acest moment: ");
+        for(Comanda comanda : comenzi)
+            System.out.println(comanda.toString());
     }
 
 }

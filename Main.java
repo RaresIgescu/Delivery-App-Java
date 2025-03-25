@@ -40,7 +40,7 @@ public class Main {
                     service.vizualizareMeniu();
                     break;
                 case 3:
-                    System.out.println("Vizualare foste comenzi.");
+                    service.vizualizareFosteComenzi();
                     break;
                 case 4:
                     service.vizualizareCos();
