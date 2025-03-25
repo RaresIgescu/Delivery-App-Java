@@ -241,11 +241,12 @@ public class Service {
                     Curier curierAleatoriu = curieri.get(indexAleatoriu);
                     comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
                     comenzi.add(comandaPlasata);
-                    for(Comanda c : comenzi) {
-                        System.out.println(c.toString());
-                    }
+                    System.out.println("Comanda dumneavoastra a fost plasta cu succes.");
                     break;
                 case "Nu":
+                    break;
+                default:
+                    System.out.println("Optiune invalida.");
                     break;
             }
         }
