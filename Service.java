@@ -9,10 +9,12 @@ public class Service {
     private Cos cos;
     private final List<Comanda> comenzi;
     private final Set<cardCredit> carduri;
+    private final Random random;
 
     public Service() {
-        this.user = null;
+        this.random = new Random();
 
+        this.user = null;
         this.restaurants = new LinkedHashSet<>();
 
         Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
@@ -235,8 +237,9 @@ public class Service {
             String optiune = scanner.nextLine();
             switch(optiune) {
                 case "Da":
-
-                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), new Curier(1, "Rares", "Igescu", "Roman", Arrays.asList()));
+                    int indexAleatoriu = random.nextInt(curieri.size());
+                    Curier curierAleatoriu = curieri.get(indexAleatoriu);
+                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
                     comenzi.add(comandaPlasata);
                     for(Comanda c : comenzi) {
                         System.out.println(c.toString());
