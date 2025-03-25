@@ -54,6 +54,6 @@ public class Comanda {
     public String toString() {
         for(Produs p : produse)
             System.out.println(p.toString());
-        return "\nPret: " + pretTotal + "\nData: " + data;
+        return "Pret: " + pretTotal + "\nData: " + data + "\n" + curier.toString();
     }
 }
