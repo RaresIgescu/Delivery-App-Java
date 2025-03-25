@@ -5,7 +5,7 @@ public class Service {
     private User user;
     private final Set<Restaurant> restaurants;
     private final Map<Restaurant, List<Produs>> meniuri;
-    private final Set<Curier> curieri;
+    private final List<Curier> curieri;
     private Cos cos;
     private final List<Comanda> comenzi;
     private final Set<cardCredit> carduri;
@@ -65,7 +65,27 @@ public class Service {
             }
         }
 
-        this.curieri = new HashSet<>();
+        this.curieri = new ArrayList<>();
+
+        Curier aamir = new Curier(1, "Aamir", "Jiskani", "Pakistan",
+                Arrays.asList(new Review(1, 4.5, "S-a miscat repede cu comanda."),
+                              new Review(2, 3, "Nu a avut sa-mi dea rest."))
+        );
+
+        Curier abdul = new Curier(1, "Abdul", "Darzada", "Tibet",
+                Arrays.asList(new Review(3, 1, "Am intarziat sa ridic comanda si mi-a mancat-o."),
+                              new Review(4, 3, "Nu a stiut sa vorbeasca romana."))
+        );
+
+        Curier farid = new Curier(1, "Farid", "Kirmani", "Nepal",
+                Arrays.asList(new Review(5, 2, "Nu am avut comanda completa."),
+                              new Review(6, 5, "Mancarea inca era calda cand a ajuns."))
+        );
+
+        this.curieri.add(aamir);
+        this.curieri.add(abdul);
+        this.curieri.add(farid);
+
         this.cos = new Cos(1, new ArrayList<Produs>(), 0);
         this.comenzi = new ArrayList<>();
         this.carduri = new HashSet<>();
@@ -211,10 +231,11 @@ public class Service {
             System.out.println("Mai intai adauga produse in cos si mai apoi poti plasa comanda.");
         } else {
             vizualizareCos();
-            System.out.println("Sunteti multumit cu starea cosului de cumparaturi?");
+            System.out.println("Sunteti multumit cu starea cosului de cumparaturi?(Da/Nu)");
             String optiune = scanner.nextLine();
             switch(optiune) {
                 case "Da":
+
                     comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), new Curier(1, "Rares", "Igescu", "Roman", Arrays.asList()));
                     comenzi.add(comandaPlasata);
                     for(Comanda c : comenzi) {
@@ -222,7 +243,7 @@ public class Service {
                     }
                     break;
                 case "Nu":
-
+                    break;
             }
         }
     }
