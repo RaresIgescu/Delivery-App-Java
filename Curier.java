@@ -23,7 +23,15 @@ public class Curier extends Persoana {
         this.reviews = reviews;
     }
 
+    public String toReviews(List<Review> reviews) {
+        String reviewsString = "";
+        for(Review r : reviews) {
+            reviewsString = reviewsString + r.toString();
+        }
+        return reviewsString;
+    }
+
     public String toString() {
-        return "-- Detalii Curier --\n" + super.toString() + "\nEtnie: \t\t" + nationalitate + "\nReviews: " + reviews;
+        return "-- Detalii Curier --\n" + super.toString() + "\nEtnie: \t\t" + nationalitate + "\nReviews: " + toReviews(reviews);
     }
 }
