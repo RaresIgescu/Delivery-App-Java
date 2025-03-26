@@ -99,22 +99,22 @@ public class Service {
 
         System.out.println("Introduceti un nume: ");
         String nume = scanner.nextLine();
-        while (nume.length() > 25) {
-            System.out.println("Numele este prea lung! Introduceti alt nume");
+        while (!nume.matches("^[a-zA-Z]{4,20}$")) {
+            System.out.println("Numele trebuie sa fie alcatuit din maxim 20 de litere.");
             nume = scanner.nextLine();
         }
 
         System.out.println("Introduceti un prenume: ");
         String prenume = scanner.nextLine();
-        while (prenume.length() > 20) {
-            System.out.println("Prenumele este prea lung! Introduceti alt prenume");
+        while (!prenume.matches("^[a-zA-Z]{4,20}$")) {
+            System.out.println("Prenumele trebuie sa fie alcatuit din maxim 20 de litere.");
             prenume = scanner.nextLine();
         }
 
         System.out.println("Introduceti o varsta: ");
         int varsta = scanner.nextInt();
         scanner.nextLine();
-        while(varsta > 100 || varsta < 16) {
+        while(varsta < 16 || varsta > 100) {
             System.out.println("Varsta invalida! Introduceti o varsta intre 16 si 100");
             varsta = scanner.nextInt();
             scanner.nextLine();
@@ -122,14 +122,14 @@ public class Service {
 
         System.out.println("Introduceti un oras: ");
         String oras = scanner.nextLine();
-        while(oras.length() > 30) {
-            System.out.println("Lungime a orasului invalida! Mai incercati");
+        while(!oras.matches("^[a-zA-Z\s]{1,25}")) {
+            System.out.println("Orasul poate avea maxim 25 de cifre si caractere.");
             oras = scanner.nextLine();
         }
 
         System.out.println("Introduceti o strada: ");
         String strada = scanner.nextLine();
-        while(strada.length() > 40) {
+        while(!strada.matches("^[a-zA-Z0-9\s]{1,30}$")) {
             System.out.println("Strada invalida! Mai incercati");
             strada = scanner.nextLine();
         }
