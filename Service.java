@@ -38,7 +38,6 @@ public class Service {
         this.restaurants.add(linea);
         this.restaurants.add(big5);
 
-
         this.meniuri = new LinkedHashMap<>();
 
         List<Produs> produseAveForchetta = Arrays.asList(
@@ -256,6 +255,20 @@ public class Service {
         System.out.println("Acestea sunt comenzile dumneavoastra pana la acest moment: ");
         for(Comanda comanda : comenzi)
             System.out.println(comanda.toString());
+    }
+
+    public void filtrareRestaurante() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ce fel de restaurante va intereseaza?");
+        for(Restaurant r : this.restaurants) {
+            System.out.println("\t" + r.getCategorie());
+        }
+        String optiune = scanner.nextLine();
+        for(Restaurant r : this.restaurants) {
+            if(optiune.equals(r.getCategorie())) {
+                System.out.println(r.toString());
+            }
+        }
     }
 
 }

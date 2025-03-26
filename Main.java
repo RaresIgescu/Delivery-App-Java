@@ -47,7 +47,7 @@ public class Main {
                     service.vizualizareCos();
                     break;
                 case 5:
-                    System.out.println("Filtrare restaurante dupa tip.");
+                    service.filtrareRestaurante();
                     break;
                 case 6:
                     service.setareDatePersonale();
