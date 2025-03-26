@@ -37,10 +37,16 @@ public class Cos {
     }
 
     public String toString() {
-        for(Produs p : produse) {
-            System.out.println(p.toString());
-            System.out.println();
+        StringBuilder sb = new StringBuilder();
+        for (Produs p : produse) {
+            sb.append(p.toString());
+            sb.append("\n");
         }
-        return "Total de plata: " + totalDePlata;
+        sb.append("\n");
+        sb.append("====================================\n");
+        sb.append("\tTotal de plata: " + totalDePlata);
+        sb.append("\n====================================");
+        return sb.toString();
     }
+
 }
