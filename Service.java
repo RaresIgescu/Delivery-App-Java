@@ -106,7 +106,7 @@ public class Service {
 
         System.out.println("Introduceti un prenume: ");
         String prenume = scanner.nextLine();
-        while (!prenume.matches("^[a-zA-Z]{4,20}$")) {
+        while (!prenume.matches("^[a-zA-Z-]{4,20}$")) {
             System.out.println("Prenumele trebuie sa fie alcatuit din maxim 20 de litere.");
             prenume = scanner.nextLine();
         }
@@ -147,24 +147,35 @@ public class Service {
             System.out.println(p.toString());
             System.out.println();
         }
-        System.out.println();
     }
 
     public void vizualizareMeniu() {
         for(Restaurant r : this.restaurants) {
+            System.out.println();
+            System.out.println("====================================");
             System.out.println("Meniul restaurantului " + r.getNume());
+            System.out.println("====================================");
+            System.out.println();
             getMeniu(r);
         }
     }
 
     public void vizualizareCos() {
-        if(this.cos.nrProduse() == 0) {
+        if (this.cos.nrProduse() == 0) {
+            System.out.println();
+            System.out.println("====================================");
             System.out.println("Cosul de cumparaturi este gol.");
+            System.out.println("====================================");
         } else {
+            System.out.println();
+            System.out.println("====================================");
             System.out.println("Asa arata cosul dumneavoastra:");
+            System.out.println("====================================");
+            System.out.println();
             System.out.println(this.cos.toString());
         }
     }
+
 
     public void adaugareProdusInCos() {
         Scanner scanner = new Scanner(System.in);
@@ -173,21 +184,27 @@ public class Service {
         Restaurant restaurantAles = null;
         List<Produs> meniu = null;
 
-        System.out.println("Mai intai hai sa alegem restaurantul: ");
+        System.out.println("====================================");
+        System.out.println(" Mai intai hai sa alegem restaurantul: ");
+        System.out.println("====================================");
+
+        int i = 1;
         for (Restaurant r : this.restaurants) {
-            System.out.println("\t" + r.getNume());
-            }
+            System.out.println(i + ". " + r.getNume());
+            i++;
+        }
 
         int optiune = scanner.nextInt();
-        while(optiune < 1 || optiune > 3) {
-            System.out.println("Alegere invalida!");
+        while (optiune < 1 || optiune > this.restaurants.size()) {
+            System.out.println("====================================");
+            System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+            System.out.println("====================================");
             optiune = scanner.nextInt();
-            scanner.nextLine();
         }
-        int i = 1;
 
-        for(Restaurant r : this.restaurants) {
-            if(optiune == i) {
+        i = 1;
+        for (Restaurant r : this.restaurants) {
+            if (optiune == i) {
                 restaurantAles = r;
                 break;
             }
@@ -195,57 +212,93 @@ public class Service {
         }
 
         meniu = this.meniuri.get(restaurantAles);
-        System.out.println("Alegere produsul.");
-        for(Produs p : meniu) {
-            System.out.println(p.toString());
+        System.out.println("====================================");
+        System.out.println("   Restaurantul ales: " + restaurantAles.getNume());
+        System.out.println("====================================");
+        System.out.println("Alege produsul:");
+
+        i = 1;
+        for (Produs p : meniu) {
+            System.out.println(i + ". " + p.toString());
+            i++;
         }
 
         optiune = scanner.nextInt();
-        while(optiune < 1 || optiune > 3) {
-            System.out.println("Alegere invalida!");
+        while (optiune < 1 || optiune > meniu.size()) {
+            System.out.println("====================================");
+            System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+            System.out.println("====================================");
             optiune = scanner.nextInt();
-            scanner.nextLine();
         }
-        i = 1;
 
-        for(Produs p : meniu) {
-            if(optiune == i) {
+        i = 1;
+        for (Produs p : meniu) {
+            if (optiune == i) {
                 produsAles = p;
                 break;
             }
             i++;
         }
-        List <Produs> produse = this.cos.getProduse();
+
+        List<Produs> produse = this.cos.getProduse();
         produse.add(produsAles);
-        for(Produs p : produse) {
+
+        for (Produs p : produse) {
             total += p.getPret();
         }
+
         this.cos = new Cos(1, produse, total);
+
+        System.out.println("====================================");
+        System.out.println(" Produsul a fost adăugat în coș!");
+        System.out.println("====================================");
         vizualizareCos();
     }
+
 
     public void plasareComanda() {
         Scanner scanner = new Scanner(System.in);
         Comanda comandaPlasata = null;
-        if(this.cos.nrProduse() == 0) {
-            System.out.println("Cosul de cumparaturi este gol.");
-            System.out.println("Mai intai adauga produse in cos si mai apoi poti plasa comanda.");
+
+        if (this.cos.nrProduse() == 0) {
+            System.out.println("====================================");
+            System.out.println(" \t\tCosul de cumparaturi este gol.");
+            System.out.println(" Mai intai adauga produse in cos si mai apoi \n\t\t\tpoti plasa comanda.");
+            System.out.println("====================================");
         } else {
             vizualizareCos();
-            System.out.println("Sunteti multumit cu starea cosului de cumparaturi?(Da/Nu)");
+
+            System.out.println("====================================");
+            System.out.println(" Sunteti multumit cu starea cosului \n\t  de cumparaturi? (Da/Nu)");
+            System.out.println("====================================");
+
             String optiune = scanner.nextLine();
-            switch(optiune) {
+
+            switch (optiune) {
                 case "Da":
                     int indexAleatoriu = random.nextInt(curieri.size());
                     Curier curierAleatoriu = curieri.get(indexAleatoriu);
+
                     comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
                     comenzi.add(comandaPlasata);
-                    System.out.println("Comanda dumneavoastra a fost plasta cu succes.");
+
+                    this.cos = new Cos(1, new ArrayList<Produs>(), 0);
+
+                    System.out.println("====================================");
+                    System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
+                    System.out.println("====================================");
                     break;
+
                 case "Nu":
+                    System.out.println("====================================");
+                    System.out.println(" Comanda nu a fost plasata.");
+                    System.out.println("====================================");
                     break;
+
                 default:
-                    System.out.println("Optiune invalida.");
+                    System.out.println("====================================");
+                    System.out.println(" Optiune invalida! Te rog sa alegi 'Da' sau 'Nu'.");
+                    System.out.println("====================================");
                     break;
             }
         }
