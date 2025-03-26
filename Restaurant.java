@@ -59,7 +59,15 @@ public class Restaurant {
         this.reviews = reviews;
     }
 
+    public String toReviews(List<Review> reviews) {
+        String reviewsString = "";
+        for(Review r : reviews) {
+            reviewsString = reviewsString + r.toString();
+        }
+        return reviewsString;
+    }
+
     public String toString() {
-        return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie;
+        return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii Restaurant -- " + toReviews(reviews);
     }
 }
