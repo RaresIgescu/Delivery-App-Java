@@ -252,9 +252,13 @@ public class Service {
     }
 
     public void vizualizareFosteComenzi() {
-        System.out.println("Acestea sunt comenzile dumneavoastra pana la acest moment: ");
-        for(Comanda comanda : comenzi)
-            System.out.println(comanda.toString());
+        if(comenzi.isEmpty()) {
+            System.out.println("La acest moment, nu aveti plasata nicio comanda.");
+        } else {
+            System.out.println("Acestea sunt comenzile dumneavoastra pana la acest moment: ");
+            for (Comanda comanda : comenzi)
+                System.out.println(comanda.toString());
+        }
     }
 
     public void filtrareRestaurante() {
@@ -264,9 +268,18 @@ public class Service {
             System.out.println("\t" + r.getCategorie());
         }
         String optiune = scanner.nextLine();
-        for(Restaurant r : this.restaurants) {
-            if(optiune.equals(r.getCategorie())) {
-                System.out.println(r.toString());
+        boolean ok = true;
+        while(ok) {
+            for (Restaurant r : this.restaurants) {
+                if (optiune.equals(r.getCategorie())) {
+                    ok = false;
+                    System.out.println(r.toString());
+                }
+                if(ok)
+                {
+                    System.out.println("Alegere invalida.");
+                    optiune = scanner.nextLine();
+                }
             }
         }
     }
