@@ -33,29 +33,30 @@ public class Main {
             scan.nextLine();
 
             switch(optiune) {
-                case 1:
+                case 1: //VERIFICAT COMPLET
                     System.out.println("Acestea sunt datele dumneavoastra personale: ");
                     service.vizualzareDatePersonale();
                     break;
-                case 2:
+                case 2: //VERIFICAT COMPLET
                     service.vizualizareMeniu();
                     break;
-                case 3:
+                case 3: //VERIFICAT COMPLET - De aduaugat o afisare mai frumoasa
+                        //De vazut de bug ca se adauga si la vechile comenzi noile produse
                     service.vizualizareFosteComenzi();
                     break;
-                case 4:
+                case 4: //Verificat complet - De golit cosul cand plasez o comanda
                     service.vizualizareCos();
                     break;
-                case 5:
+                case 5: //VERIFICAT COMPLET
                     service.filtrareRestaurante();
                     break;
-                case 6:
+                case 6: //VERIFICAT COMPLET
                     service.setareDatePersonale();
                     break;
-                case 7:
+                case 7: //VERIFICAT COMPLET - De golit cos dupa ce plasam comanda
                     service.adaugareProdusInCos();
                     break;
-                case 8:
+                case 8: //DE GOLIT COS!!!!!!!!!!!!!!!!!!!!!!!!!!
                     service.plasareComanda();
                     break;
                 case 9:
