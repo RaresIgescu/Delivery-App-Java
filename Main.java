@@ -10,7 +10,7 @@ public class Main {
         service.setareDatePersonale();
 
         //comment
-
+        //comment 2
         boolean ok = true;
         while(ok) {
             System.out.println("Interogari:");
