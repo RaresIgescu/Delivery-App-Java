@@ -9,6 +9,8 @@ public class Main {
         System.out.println("Mai intai de toate va rog sa va introduceti datele personale: ");
         service.setareDatePersonale();
 
+        //comment
+
         boolean ok = true;
         while(ok) {
             System.out.println("Interogari:");
