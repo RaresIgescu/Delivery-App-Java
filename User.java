@@ -31,7 +31,16 @@ public class User extends Persoana {
         this.strada = strada;
     }
 
+    @Override
     public String toString() {
-        return super.toString() + "\nVarsta: \t" + varsta + "\nOras: \t\t" + oras + "\nStrada: \t" + strada;
+        return "\n======================================\n" +
+                "Acestea sunt datele dumneavoastră personale:\n" +
+                "======================================\n" +
+                super.toString() + "\n" +
+                "Varsta:  \t" + varsta + "\n" +
+                "Oras:    \t" + oras + "\n" +
+                "Strada:  \t" + strada + "\n" +
+                "======================================";
     }
+
 }
