@@ -40,6 +40,10 @@ public class Produs {
     }
 
     public String toString() {
-        return "\tNume: " + nume + "\n\tPret: " + pret + "\n\tDisponibilitate: " + disponibilitate;
+        return "\t====================================\n" +
+                "\tNume: " + nume + "\n" +
+                "\tPret: " + pret + "\n" +
+                "\tDisponibilitate: " + disponibilitate + "\n" +
+                "\t====================================";
     }
 }
