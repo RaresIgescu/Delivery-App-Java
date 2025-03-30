@@ -76,13 +76,15 @@ public class Main {
                     service.adaugareCardInMemorie();
                     break;
                 case 10:
-                    System.out.println("Adaugare review pentru restaurant.");
+                    //De ales daca pot da comanda de la un singur restaurant
+                    //ca sa pot lasa review-uri usor dupa
+                    service.addReviewToRestaurant();
                     break;
                 case 11:
-                    System.out.println("Adaugare review pentru curier.");
+                    service.addReviewToCurier();
                     break;
                 case 12:
-                    System.out.println("Sterge comanda din memorie.");
+                    service.deleteOrder();
                     break;
                 case 0:
                     ok = false;
