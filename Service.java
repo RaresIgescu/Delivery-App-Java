@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -89,7 +90,7 @@ public class Service {
 
         this.cos = new Cos(1, new ArrayList<Produs>(), 0);
         this.comenzi = new ArrayList<>();
-        this.carduri = new HashSet<>();
+        this.carduri = new LinkedHashSet<>();
     }
 
     public void setareDatePersonale() {
@@ -305,14 +306,24 @@ public class Service {
     }
 
     public void vizualizareFosteComenzi() {
-        if(comenzi.isEmpty()) {
-            System.out.println("La acest moment, nu aveti plasata nicio comanda.");
+        if (comenzi.isEmpty()) {
+            System.out.println();
+            System.out.println("==============================================");
+            System.out.println("⚠ La acest moment, nu aveți plasată nicio comandă.");
+            System.out.println("==============================================");
         } else {
-            System.out.println("Acestea sunt comenzile dumneavoastra pana la acest moment: ");
-            for (Comanda comanda : comenzi)
+            System.out.println();
+            System.out.println("==============================================");
+            System.out.println("Acestea sunt comenzile dumneavoastră până la acest moment:");
+            System.out.println("==============================================");
+
+            for (Comanda comanda : comenzi) {
                 System.out.println(comanda.toString());
+                System.out.println("----------------------------------------------"); // Separator între comenzi
+            }
         }
     }
+
 
     public void filtrareRestaurante() {
         Scanner scanner = new Scanner(System.in);
@@ -335,6 +346,32 @@ public class Service {
                 }
             }
         }
+    }
+
+    public void adaugareCardInMemorie() {
+        Scanner scanner = new Scanner(System.in);
+        String numarCard = null;
+        System.out.println("Introduceti codul de 16 cifre pentru card: ");
+        numarCard = scanner.nextLine();
+        while (!numarCard.matches("\\d{4} ?\\d{4} ?\\d{4} ?\\d{4}")) {
+            System.out.println("Cod invalid, folsitit doar un cod de 16 cifre.");
+            numarCard = scanner.nextLine();
+        }
+        System.out.println("Acum introduceti tipul cardului: ");
+        String tipCard = null;
+        tipCard = scanner.nextLine();
+        while(!tipCard.matches("[a-zA-Z]{1,15}")) {
+            System.out.println("Va rog introduceti doar litere pana in 15 caractere.");
+            tipCard = scanner.nextLine();
+        }
+        System.out.println("Si CVV-ul cardului: ");
+        String CVV = null;
+        CVV = scanner.nextLine();
+        while(!CVV.matches("\\d{3}")) {
+            System.out.println("CVV Invalid.");
+            CVV = scanner.nextLine();
+        }
+        carduri.add(new cardCredit(1, numarCard, tipCard, CVV));
     }
 
 }
