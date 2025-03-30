@@ -52,7 +52,7 @@ public class Main {
                 case 2:
                     service.vizualizareMeniu();
                     break;
-                case 3:
+                case 3: //De facut afisarea mai frumoasa ca sa se vada comenzile despartite unele de altele
                     service.vizualizareFosteComenzi();
                     break;
                 case 4:
@@ -64,14 +64,16 @@ public class Main {
                 case 6:
                     service.setareDatePersonale();
                     break;
-                case 7:
+                case 7: //De bagat optiune ai doar prodysele disponibile sa poata fi adaugate in cos
                     service.adaugareProdusInCos();
                     break;
-                case 8:
+                case 8: //De adaguat metoda de vizualizare a curierului dupa ce comanda a fost plasata
+                        //De adaugat metoda de platire cu cardul cand se plaseaza comanda si daca exista
+                        //carduri in memorie
                     service.plasareComanda();
                     break;
-                case 9:
-                    System.out.println("Adaugare card de credit in memorie.");
+                case 9: //De adaugat optiune de sters cad daca am timp / chef
+                    service.adaugareCardInMemorie();
                     break;
                 case 10:
                     System.out.println("Adaugare review pentru restaurant.");
