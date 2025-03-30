@@ -1,14 +1,12 @@
 public class cardCredit {
     private int id;
     private String numarCard;
-    private User detinator;
     private String tipCard;
     private String CVV;
 
-    public cardCredit(int id, String numarCard, User detinator, String tipCard, String CVV) {
+    public cardCredit(int id, String numarCard, String tipCard, String CVV) {
         this.id = id;
         this.numarCard = numarCard;
-        this.detinator = detinator;
         this.tipCard = tipCard;
         this.CVV = CVV;
     }
@@ -27,13 +25,6 @@ public class cardCredit {
         this.numarCard = numarCard;
     }
 
-    public User getDetinator() {
-        return detinator;
-    }
-    public void setDetinator(User detinator) {
-        this.detinator = detinator;
-    }
-
     public String getTipCard() {
         return tipCard;
     }
@@ -49,7 +40,7 @@ public class cardCredit {
     }
 
     public String toString() {
-        return "NumarCard: " + numarCard + "\nDetinator: " + detinator + "\nTipCard: " + tipCard + "\nCVV: " + CVV;
+        return "NumarCard: " + numarCard  + "\nTipCard: " + tipCard + "\nCVV: " + CVV;
 
     }
 }
