@@ -256,7 +256,6 @@ public class Service {
         vizualizareCos();
     }
 
-
     public void plasareComanda() {
         Scanner scanner = new Scanner(System.in);
         Comanda comandaPlasata = null;
@@ -324,7 +323,6 @@ public class Service {
         }
     }
 
-
     public void filtrareRestaurante() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ce fel de restaurante va intereseaza?");
@@ -372,6 +370,30 @@ public class Service {
             CVV = scanner.nextLine();
         }
         carduri.add(new cardCredit(1, numarCard, tipCard, CVV));
+    }
+
+    public void addReviewToRestaurant() {
+        if(comenzi.isEmpty()) {
+            System.out.println("Nu puteti lasa review-uri daca nu aveti comnenzi plasate.");
+        } else {
+
+        }
+    }
+
+    public void addReviewToCurier() {
+        if(comenzi.isEmpty()) {
+            System.out.println("Nu puteti lasa review-uri daca nu aveti comenzi plasate.");
+        } else {
+            if(comenzi.size() == 1) {
+                Restaurant r = comenzi.get(0);
+            } else {
+
+            }
+        }
+    }
+
+    public void deleteOrder() {
+
     }
 
 }
