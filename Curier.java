@@ -32,6 +32,6 @@ public class Curier extends Persoana {
     }
 
     public String toString() {
-        return "-- Detalii Curier --\n" + super.toString() + "\nEtnie: \t\t" + nationalitate + "\nReviews: " + toReviews(reviews);
+        return  super.toString() + "\nEtnie: \t\t" + nationalitate + "\nReviews: " + toReviews(reviews);
     }
 }
