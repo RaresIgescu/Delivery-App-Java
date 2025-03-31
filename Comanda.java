@@ -4,13 +4,15 @@ import java.time.LocalDate;
 public class Comanda {
     private int id;
     private List<Produs> produse;
+    private Restaurant restaurant;
     private double pretTotal;
     private LocalDate data;
     private Curier curier;
 
-    public Comanda(int id, List<Produs> produse, double pretTotal, LocalDate data, Curier curier) {
+    public Comanda(int id, List<Produs> produse, Restaurant restaurant, double pretTotal, LocalDate data, Curier curier) {
         this.id = id;
         this.produse = produse;
+        this.restaurant = restaurant;
         this.pretTotal = pretTotal;
         this.data = data;
         this.curier = curier;
@@ -29,6 +31,9 @@ public class Comanda {
     public void setProduse(List<Produs> produse) {
         this.produse = produse;
     }
+
+    public Restaurant getRestaurant() {return restaurant;}
+    public void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
 
     public double getPretTotal() {
         return pretTotal;
