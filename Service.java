@@ -88,7 +88,7 @@ public class Service {
         this.curieri.add(abdul);
         this.curieri.add(farid);
 
-        this.cos = new Cos(1, new ArrayList<Produs>(), 0);
+        this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
         this.comenzi = new ArrayList<>();
         this.carduri = new LinkedHashSet<>();
     }
@@ -182,78 +182,205 @@ public class Service {
         Scanner scanner = new Scanner(System.in);
         double total = 0.0;
         Produs produsAles = null;
-        Restaurant restaurantAles = null;
+        Restaurant restaurantAles = this.cos.getRestaurant();
         List<Produs> meniu = null;
+        int optiune;
 
-        System.out.println("====================================");
-        System.out.println(" Mai intai hai sa alegem restaurantul: ");
-        System.out.println("====================================");
-
-        int i = 1;
-        for (Restaurant r : this.restaurants) {
-            System.out.println(i + ". " + r.getNume());
-            i++;
-        }
-
-        int optiune = scanner.nextInt();
-        while (optiune < 1 || optiune > this.restaurants.size()) {
+        if (restaurantAles == null) {
             System.out.println("====================================");
-            System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+            System.out.println(" Mai intai hai sa alegem restaurantul: ");
             System.out.println("====================================");
-            optiune = scanner.nextInt();
-        }
 
-        i = 1;
-        for (Restaurant r : this.restaurants) {
-            if (optiune == i) {
-                restaurantAles = r;
-                break;
+            int i = 1;
+            for (Restaurant r : this.restaurants) {
+                System.out.println(i + ". " + r.getNume());
+                i++;
             }
-            i++;
-        }
 
-        meniu = this.meniuri.get(restaurantAles);
-        System.out.println("====================================");
-        System.out.println("   Restaurantul ales: " + restaurantAles.getNume());
-        System.out.println("====================================");
-        System.out.println("Alege produsul:");
-
-        i = 1;
-        for (Produs p : meniu) {
-            System.out.println(i + ". " + p.toString());
-            i++;
-        }
-
-        optiune = scanner.nextInt();
-        while (optiune < 1 || optiune > meniu.size()) {
-            System.out.println("====================================");
-            System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
-            System.out.println("====================================");
             optiune = scanner.nextInt();
-        }
-
-        i = 1;
-        for (Produs p : meniu) {
-            if (optiune == i) {
-                produsAles = p;
-                break;
+            while (optiune < 1 || optiune > this.restaurants.size()) {
+                System.out.println("====================================");
+                System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+                System.out.println("====================================");
+                optiune = scanner.nextInt();
             }
-            i++;
+
+            i = 1;
+            for (Restaurant r : this.restaurants) {
+                if (optiune == i) {
+                    restaurantAles = r;
+                    break;
+                }
+                i++;
+            }
+            meniu = this.meniuri.get(restaurantAles);
+            System.out.println("====================================");
+            System.out.println("   Restaurantul ales: " + restaurantAles.getNume());
+            System.out.println("====================================");
+            System.out.println("Alege produsul:");
+
+            i = 1;
+            for (Produs p : meniu) {
+                System.out.println(i + ". " + p.toString());
+                i++;
+            }
+
+            optiune = scanner.nextInt();
+            while (optiune < 1 || optiune > meniu.size()) {
+                System.out.println("====================================");
+                System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+                System.out.println("====================================");
+                optiune = scanner.nextInt();
+            }
+
+            i = 1;
+            for (Produs p : meniu) {
+                if (optiune == i) {
+                    produsAles = p;
+                    break;
+                }
+                i++;
+            }
+
+            List<Produs> produse = this.cos.getProduse();
+            produse.add(produsAles);
+
+            for (Produs p : produse) {
+                total += p.getPret();
+            }
+
+            this.cos = new Cos(1, restaurantAles, produse, total);
+
+            System.out.println("====================================");
+            System.out.println(" Produsul a fost adăugat în coș!");
+            System.out.println("====================================");
+            vizualizareCos();
+        } else {
+            System.out.println("Aveti deja produse in cos de la: " + restaurantAles.getNume() + ".");
+            System.out.println("Vreti sa: ");
+            System.out.println("1. Adaugati produse de la restaurantul curent.");
+            System.out.println("2. Comandati de la alt restaurant.");
+            System.out.println("!!INTR-O COMANDA SE POT AFLA DOAR PRODUSE DE LA ACELASI RESTAURANT!!");
+            optiune = scanner.nextInt();
+            while (optiune != 1 && optiune != 2) {
+                System.out.println("Optiune invalida!");
+                optiune = scanner.nextInt();
+            }
+            if (optiune == 1) {
+                meniu = this.meniuri.get(restaurantAles);
+                System.out.println("====================================");
+                System.out.println("   Restaurantul ales: " + restaurantAles.getNume());
+                System.out.println("====================================");
+                System.out.println("Alege produsul:");
+
+                int i = 1;
+                for (Produs p : meniu) {
+                    System.out.println(i + ". " + p.toString());
+                    i++;
+                }
+
+                optiune = scanner.nextInt();
+                while (optiune < 1 || optiune > meniu.size()) {
+                    System.out.println("====================================");
+                    System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+                    System.out.println("====================================");
+                    optiune = scanner.nextInt();
+                }
+
+                i = 1;
+                for (Produs p : meniu) {
+                    if (optiune == i) {
+                        produsAles = p;
+                        break;
+                    }
+                    i++;
+                }
+
+                List<Produs> produse = this.cos.getProduse();
+                produse.add(produsAles);
+
+                for (Produs p : produse) {
+                    total += p.getPret();
+                }
+
+                this.cos = new Cos(1, restaurantAles, produse, total);
+
+                System.out.println("====================================");
+                System.out.println(" Produsul a fost adăugat în coș!");
+                System.out.println("====================================");
+                vizualizareCos();
+            } else {
+                this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
+                System.out.println("====================================");
+                System.out.println(" Mai intai hai sa alegem restaurantul: ");
+                System.out.println("====================================");
+
+                int i = 1;
+                for (Restaurant r : this.restaurants) {
+                    System.out.println(i + ". " + r.getNume());
+                    i++;
+                }
+
+                optiune = scanner.nextInt();
+                while (optiune < 1 || optiune > this.restaurants.size()) {
+                    System.out.println("====================================");
+                    System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+                    System.out.println("====================================");
+                    optiune = scanner.nextInt();
+                }
+
+                i = 1;
+                for (Restaurant r : this.restaurants) {
+                    if (optiune == i) {
+                        restaurantAles = r;
+                        break;
+                    }
+                    i++;
+                }
+                meniu = this.meniuri.get(restaurantAles);
+                System.out.println("====================================");
+                System.out.println("   Restaurantul ales: " + restaurantAles.getNume());
+                System.out.println("====================================");
+                System.out.println("Alege produsul:");
+
+                i = 1;
+                for (Produs p : meniu) {
+                    System.out.println(i + ". " + p.toString());
+                    i++;
+                }
+
+                optiune = scanner.nextInt();
+                while (optiune < 1 || optiune > meniu.size()) {
+                    System.out.println("====================================");
+                    System.out.println(" Alegere invalida! Te rog sa alegi un numar valid.");
+                    System.out.println("====================================");
+                    optiune = scanner.nextInt();
+                }
+
+                i = 1;
+                for (Produs p : meniu) {
+                    if (optiune == i) {
+                        produsAles = p;
+                        break;
+                    }
+                    i++;
+                }
+
+                List<Produs> produse = this.cos.getProduse();
+                produse.add(produsAles);
+
+                for (Produs p : produse) {
+                    total += p.getPret();
+                }
+
+                this.cos = new Cos(1, restaurantAles, produse, total);
+
+                System.out.println("====================================");
+                System.out.println(" Produsul a fost adăugat în coș!");
+                System.out.println("====================================");
+                vizualizareCos();
+            }
         }
-
-        List<Produs> produse = this.cos.getProduse();
-        produse.add(produsAles);
-
-        for (Produs p : produse) {
-            total += p.getPret();
-        }
-
-        this.cos = new Cos(1, produse, total);
-
-        System.out.println("====================================");
-        System.out.println(" Produsul a fost adăugat în coș!");
-        System.out.println("====================================");
-        vizualizareCos();
     }
 
     public void plasareComanda() {
@@ -279,10 +406,10 @@ public class Service {
                     int indexAleatoriu = random.nextInt(curieri.size());
                     Curier curierAleatoriu = curieri.get(indexAleatoriu);
 
-                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
+                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getRestaurant(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
                     comenzi.add(comandaPlasata);
 
-                    this.cos = new Cos(1, new ArrayList<Produs>(), 0);
+                    this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
 
                     System.out.println("====================================");
                     System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
@@ -385,7 +512,7 @@ public class Service {
             System.out.println("Nu puteti lasa review-uri daca nu aveti comenzi plasate.");
         } else {
             if(comenzi.size() == 1) {
-                Restaurant r = comenzi.get(0);
+                //Restaurant r = comenzi.get(0);
             } else {
 
             }
