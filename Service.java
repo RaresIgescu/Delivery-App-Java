@@ -281,22 +281,59 @@ public class Service {
 
             switch (optiune) {
                 case "Da":
-                    int indexAleatoriu = random.nextInt(curieri.size());
-                    Curier curierAleatoriu = curieri.get(indexAleatoriu);
+                    System.out.println("Cum ati vrea sa platiti?");
+                    System.out.println("1. Cash, la curier.");
+                    System.out.println("2. Card de credit, online.");
+                    int value = scanner.nextInt();
 
-                    comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getRestaurant(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
-                    comenzi.add(comandaPlasata);
+                    if(value == 1) {
+                        System.out.println("Plata se va face cash la curier.");
+                        System.out.println("Incercati sa aveti o suma cat mai exacta.");
 
-                    this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
+                        int indexAleatoriu = random.nextInt(curieri.size());
+                        Curier curierAleatoriu = curieri.get(indexAleatoriu);
 
-                    System.out.println("====================================");
-                    System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
-                    System.out.println("====================================");
+                        comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getRestaurant(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
+                        comenzi.add(comandaPlasata);
 
-                    System.out.println();
-                    System.out.println(curierAleatoriu.toString());
-                    System.out.println("Nu uitati sa lasati un review daca doriti in meniul nostru interactiv!");
+                        this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
 
+                        System.out.println("====================================");
+                        System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
+                        System.out.println("====================================");
+
+                        System.out.println();
+                        System.out.println(curierAleatoriu.toString());
+                        System.out.println("Nu uitati sa lasati un review daca doriti in meniul nostru interactiv!");
+
+
+                    } else {
+                        if (carduri.isEmpty()) {
+                            System.out.println("Nu aveti carduri de credit salvate.");
+                            System.out.println("Pentru a adauga carduri de credit, vizitati meniul interactiv si incercati sa plasati comanda dupa aceea.");
+                        } else {
+                            System.out.println("Alegeti cardul de credit dorit: ");
+                            for(cardCredit card : carduri) {
+                                System.out.println();
+                                System.out.println(card.toString());
+                            }
+                            int indexAleatoriu = random.nextInt(curieri.size());
+                            Curier curierAleatoriu = curieri.get(indexAleatoriu);
+
+                            comandaPlasata = new Comanda(1, this.cos.getProduse(), this.cos.getRestaurant(), this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu);
+                            comenzi.add(comandaPlasata);
+
+                            this.cos = new Cos(1, null, new ArrayList<Produs>(), 0);
+
+                            System.out.println("====================================");
+                            System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
+                            System.out.println("====================================");
+
+                            System.out.println();
+                            System.out.println(curierAleatoriu.toString());
+                            System.out.println("Nu uitati sa lasati un review daca doriti in meniul nostru interactiv!");
+                        }
+                    }
                     break;
 
                 case "Nu":
