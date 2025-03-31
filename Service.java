@@ -292,6 +292,11 @@ public class Service {
                     System.out.println("====================================");
                     System.out.println(" Comanda dumneavoastra a fost plasata cu succes.");
                     System.out.println("====================================");
+
+                    System.out.println();
+                    System.out.println(curierAleatoriu.toString());
+                    System.out.println("Nu uitati sa lasati un review daca doriti in meniul nostru interactiv!");
+
                     break;
 
                 case "Nu":
