@@ -2,11 +2,13 @@ import java.util.List;
 
 public class Cos {
     private int id;
+    private Restaurant restaurant;
     private List<Produs> produse;
     private double totalDePlata;
 
-    public Cos(int id, List<Produs> produse, double totalDePlata) {
+    public Cos(int id, Restaurant restaurant, List<Produs> produse, double totalDePlata) {
         this.id = id;
+        this.restaurant = restaurant;
         this.produse = produse;
         this.totalDePlata = totalDePlata;
     }
@@ -16,6 +18,13 @@ public class Cos {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public int nrProduse() {
