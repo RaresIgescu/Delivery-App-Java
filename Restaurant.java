@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant {
@@ -14,7 +15,7 @@ public class Restaurant {
         this.strada = strada;
         this.oras = oras;
         this.categorie = categorie;
-        this.reviews = reviews;
+        this.reviews = new ArrayList<>(reviews);
     }
 
     public int getId() {
