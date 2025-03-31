@@ -40,6 +40,6 @@ public class cardCredit {
     }
 
     public String toString() {
-        return "Numar card: ************" + numarCard.substring(numarCard.length() - 4) + "\nTipul Cardurlui: " + tipCard;
+        return "Numar card: ************" + numarCard.substring(numarCard.length() - 4) + "\n   Tipul Cardurlui: " + tipCard;
     }
 }
