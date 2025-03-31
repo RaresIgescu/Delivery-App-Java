@@ -64,20 +64,16 @@ public class Main {
                 case 6:
                     service.setareDatePersonale();
                     break;
-                case 7: //De bagat optiune ai doar prodysele disponibile sa poata fi adaugate in cos
+                case 7:
                     service.adaugareProdusInCos();
                     break;
-                case 8: //De adaguat metoda de vizualizare a curierului dupa ce comanda a fost plasata
-                        //De adaugat metoda de platire cu cardul cand se plaseaza comanda si daca exista
-                        //carduri in memorie
+                case 8:
                     service.plasareComanda();
                     break;
                 case 9: //De adaugat optiune de sters cad daca am timp / chef
                     service.adaugareCardInMemorie();
                     break;
                 case 10:
-                    //De ales daca pot da comanda de la un singur restaurant
-                    //ca sa pot lasa review-uri usor dupa
                     service.addReviewToRestaurant();
                     break;
                 case 11:
