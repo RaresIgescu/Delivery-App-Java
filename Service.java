@@ -502,6 +502,7 @@ public class Service {
                 int comandaIndex = 1;
                 System.out.println();
                 System.out.println(comandaIndex + ". " + comanda.toString());
+                comandaIndex += 1;
             }
             int optiune = scanner.nextInt();
             int comandaIndex = 1;
@@ -513,6 +514,17 @@ public class Service {
                     comandaAleasa = comanda;
             }
             restaurantAles = comandaAleasa.getRestaurant();
+            double scor = 0;
+            System.out.println("Ce nota alegeti pentru review? (De la 1 la 5)");
+            scor = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println("Introduceti o descriere.");
+            String comentariu = scanner.nextLine();
+            Review reviewNou = new Review(1, scor, comentariu);
+            List<Review> reviews = restaurantAles.getReviews();
+            reviews.add(reviewNou);
+            restaurantAles.setReviews(reviews);
+            System.out.println(restaurantAles.toString());
         }
     }
 
