@@ -493,39 +493,97 @@ public class Service {
 
     public void addReviewToRestaurant() {
         Scanner scanner = new Scanner(System.in);
-        if(comenzi.isEmpty()) {
-            System.out.println("Nu puteti lasa review-uri daca nu aveti comnenzi plasate.");
+
+        if (comenzi.isEmpty()) {
+            System.out.println("\n╔════════════════════════════════════╗");
+            System.out.println("║                                    ║");
+            System.out.println("║  Nu aveți comenzi plasate.         ║");
+            System.out.println("║  Pentru a lăsa un review,         ║");
+            System.out.println("║  plasați mai întâi o comandă.     ║");
+            System.out.println("║                                    ║");
+            System.out.println("╚════════════════════════════════════╝");
             return;
-        } else {
-            for(Comanda comanda : comenzi) {
-                System.out.println("Alegeti pentru ce comanda vreti sa lasati review la restaurant: ");
-                int comandaIndex = 1;
-                System.out.println();
-                System.out.println(comandaIndex + ". " + comanda.toString());
-                comandaIndex += 1;
-            }
-            int optiune = scanner.nextInt();
-            int comandaIndex = 1;
-            Comanda comandaAleasa = null;
-            Restaurant restaurantAles = null;
-            scanner.nextLine();
-            for(Comanda comanda : comenzi) {
-                if(optiune == comandaIndex)
-                    comandaAleasa = comanda;
-            }
-            restaurantAles = comandaAleasa.getRestaurant();
-            double scor = 0;
-            System.out.println("Ce nota alegeti pentru review? (De la 1 la 5)");
-            scor = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.println("Introduceti o descriere.");
-            String comentariu = scanner.nextLine();
-            Review reviewNou = new Review(1, scor, comentariu);
-            List<Review> reviews = restaurantAles.getReviews();
-            reviews.add(reviewNou);
-            restaurantAles.setReviews(reviews);
-            System.out.println(restaurantAles.toString());
         }
+
+        // Afișare antet
+        System.out.println("\n╔════════════════════════════════════╗");
+        System.out.println("║       ADAUGARE REVIEW              ║");
+        System.out.println("╠════════════════════════════════════╣");
+        System.out.println("║  Selectați comanda pentru care     ║");
+        System.out.println("║  doriți să lăsați review:          ║");
+        System.out.println("╚════════════════════════════════════╝");
+
+        int index = 1;
+        for (Comanda comanda : comenzi) {
+            System.out.printf("\n%d. Restaurant: %s", index, comanda.getRestaurant().getNume());
+            System.out.printf("\n   Data: %s", comanda.getData());
+            System.out.printf("\n   Total: %.2f RON", comanda.getPretTotal());
+            System.out.println("\n   ────────────────────────────────");
+            index++;
+        }
+
+        int optiune;
+        while (true) {
+            System.out.print("\n➤ Introduceți numărul comenzii: ");
+            try {
+                optiune = scanner.nextInt();
+                scanner.nextLine();
+
+                if (optiune < 1 || optiune > comenzi.size()) {
+                    System.out.println("⚠ Vă rugăm introduceți un număr între 1 și " + comenzi.size());
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("⚠ Introduceți doar numere!");
+                scanner.nextLine();
+            }
+        }
+
+        Comanda comandaAleasa = comenzi.get(optiune - 1);
+        Restaurant restaurant = comandaAleasa.getRestaurant();
+
+        double scor;
+        while (true) {
+            System.out.print("\n➤ Nota dvs. (1-5 stele): ");
+            try {
+                scor = scanner.nextDouble();
+                scanner.nextLine();
+
+                if (scor < 1 || scor > 5) {
+                    System.out.println("⚠ Nota trebuie să fie între 1 și 5!");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("⚠ Introduceți doar numere!");
+                scanner.nextLine();
+            }
+        }
+
+        System.out.println("\n✎ Spuneți-ne părerea dvs. (max 200 caractere):");
+        System.out.print("➤ ");
+        String comentariu = scanner.nextLine();
+
+        Review reviewNou = new Review(1, scor, comentariu);
+
+        List<Review> reviews = restaurant.getReviews();
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(reviewNou);
+        restaurant.setReviews(reviews);
+
+        System.out.println("\n╔════════════════════════════════════╗");
+        System.out.println("║                                    ║");
+        System.out.println("║  ✓ REVIEW ADAUGAT CU SUCCES!       ║");
+        System.out.println("║                                    ║");
+        System.out.println("╚════════════════════════════════════╝");
+
+        System.out.println("\nMulțumim pentru feedback-ul dvs. despre:");
+        System.out.println("🍽️ " + restaurant.getNume());
+        System.out.printf("⭐ Scor: %.1f/5\n", scor);
+        System.out.println("📝 Comentariu: " + comentariu);
     }
 
     public void addReviewToCurier() {
