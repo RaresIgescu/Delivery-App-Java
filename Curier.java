@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curier extends Persoana {
@@ -7,7 +8,7 @@ public class Curier extends Persoana {
     public Curier(int id, String nume, String prenume, String nationalitate, List<Review> reviews) {
         super(id, nume, prenume);
         this.nationalitate = nationalitate;
-        this.reviews = reviews;
+        this.reviews = new ArrayList<>(reviews);
     }
     public String getNationalitate() {
         return nationalitate;
