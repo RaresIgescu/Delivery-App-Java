@@ -44,6 +44,8 @@ public class Produs {
         return "\n┌────────────────────────────────────┐\n" +
                 "│              PRODUS                │\n" +
                 "├────────────────────────────────────┤\n" +
+                // %-12s - afiseaza un string pe exact 12 caractere aliniat la stanga
+                // %-16.2f - afiseaza un float de exact 16 caractere aproximat la 2 zecimale aliniat la stanga
                 String.format("│ %-12s: %-20s │\n", "Nume", nume) +
                 String.format("│ %-12s: %-16.2f RON │\n", "Preț", pret) +
                 String.format("│ %-12s: %-17s │\n", "Disponibilitate", disponibilitate ) +
