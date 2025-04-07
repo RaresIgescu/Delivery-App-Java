@@ -56,6 +56,7 @@ public class Comanda {
         this.curier = curier;
     }
 
+    @Override
     public String toString() {
         for(Produs p : produse)
             System.out.println(p.toString());

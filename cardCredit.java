@@ -39,6 +39,7 @@ public class cardCredit {
         this.CVV = CVV;
     }
 
+    @Override
     public String toString() {
         return "Numar card: ************" + numarCard.substring(numarCard.length() - 4) + "\n   Tipul Cardurlui: " + tipCard;
     }
