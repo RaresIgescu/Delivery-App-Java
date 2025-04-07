@@ -45,16 +45,15 @@ public class Cos {
         this.totalDePlata = totalDePlata;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        int index = 1;
         for (Produs p : produse) {
-            sb.append(p.toString());
-            sb.append("\n");
+            sb.append(String.format("║ %2d. %-30s ║\n", index++, p.getNume()));
+            sb.append(String.format("║    %-6s: %-19.2f RON ║\n", "Preț", p.getPret()));
+            sb.append("╠════════════════════════════════════╣\n");
         }
-        sb.append("\n");
-        sb.append("====================================\n");
-        sb.append("\tTotal de plata: " + totalDePlata);
-        sb.append("\n====================================");
         return sb.toString();
     }
 

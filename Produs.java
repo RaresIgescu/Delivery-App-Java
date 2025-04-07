@@ -39,11 +39,14 @@ public class Produs {
         this.disponibilitate = disponibilitate;
     }
 
+    @Override
     public String toString() {
-        return "\t====================================\n" +
-                "\tNume: " + nume + "\n" +
-                "\tPret: " + pret + "\n" +
-                "\tDisponibilitate: " + disponibilitate + "\n" +
-                "\t====================================";
+        return "\n┌────────────────────────────────────┐\n" +
+                "│              PRODUS                │\n" +
+                "├────────────────────────────────────┤\n" +
+                String.format("│ %-12s: %-20s │\n", "Nume", nume) +
+                String.format("│ %-12s: %-16.2f RON │\n", "Preț", pret) +
+                String.format("│ %-12s: %-17s │\n", "Disponibilitate", disponibilitate ) +
+                "└────────────────────────────────────┘";
     }
 }
