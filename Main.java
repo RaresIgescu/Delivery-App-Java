@@ -7,12 +7,12 @@ public class Main {
 
         System.out.println("\n╔════════════════════════════════════════════╗");
         System.out.println("║                                            ║");
-        System.out.println("║        BINE AȚI VENIT PE placeIT!          ║");
-        System.out.println("║   Cea mai nouă platformă de food delivery  ║");
+        System.out.println("║        BINE ATI VENIT PE placeIT!          ║");
+        System.out.println("║   Cea mai noua platforma de food delivery  ║");
         System.out.println("║                                            ║");
         System.out.println("╚════════════════════════════════════════════╝");
-        System.out.println("\n📋 Mai întâi de toate vă rog să introduceți datele personale:");
-        service.setareDatePersonale();
+        System.out.println("\n📋 Mai intai de toate va rog sa introduceti datele personale:");
+        service.setareDatePersonale(); //functie care tine minte datele utilizatorului
 
         boolean ok = true;
         while (ok) {
@@ -20,33 +20,33 @@ public class Main {
             System.out.println("║                MENIU PRINCIPAL             ║");
             System.out.println("╠════════════════════════════════════════════╣");
             System.out.println("║                                            ║");
-            System.out.println("║            📋 INTEROGĂRI                   ║");
+            System.out.println("║            📋 INTEROGARI                   ║");
             System.out.println("║                                            ║");
             System.out.println("║ 1. Vizualizare date personale              ║");
             System.out.println("║ 2. Vizualizare meniu restaurante           ║");
             System.out.println("║ 3. Vizualizare foste comenzi               ║");
-            System.out.println("║ 4. Vizualizare coș de cumpărături          ║");
-            System.out.println("║ 5. Filtrare restaurante după tip           ║");
+            System.out.println("║ 4. Vizualizare cos de cumparaturi          ║");
+            System.out.println("║ 5. Filtrare restaurante dupa tip           ║");
             System.out.println("║                                            ║");
-            System.out.println("║            ⚡ ACȚIUNI                       ║");
+            System.out.println("║            ⚡ ACTIUNI                       ║");
             System.out.println("║                                            ║");
             System.out.println("║ 6. Modificare date personale               ║");
-            System.out.println("║ 7. Adăugare produs în coș                  ║");
-            System.out.println("║ 8. Plasare comandă                         ║");
-            System.out.println("║ 9. Adăugare card de credit                 ║");
-            System.out.println("║ 10. Adăugare review pentru restaurant      ║");
-            System.out.println("║ 11. Adăugare review pentru curier          ║");
-            System.out.println("║ 12. Ștergere comandă din istoric           ║");
+            System.out.println("║ 7. Adaugare produs in cos                  ║");
+            System.out.println("║ 8. Plasare comanda                         ║");
+            System.out.println("║ 9. Adaugare card de credit                 ║");
+            System.out.println("║ 10. Adaugare review pentru restaurant      ║");
+            System.out.println("║ 11. Adaugare review pentru curier          ║");
+            System.out.println("║ 12. Stergere comanda din istoric           ║");
             System.out.println("║                                            ║");
-            System.out.println("║ 0. Ieșire din aplicație                    ║");
+            System.out.println("║ 0. Iesire din aplicatie                    ║");
             System.out.println("║                                            ║");
             System.out.println("╚════════════════════════════════════════════╝");
-            System.out.print("\n➤ Alegeți o opțiune: ");
+            System.out.print("\n➤ Alegeti o optiune: ");
 
             int optiune = scan.nextInt();
             scan.nextLine();
 
-            switch(optiune) {
+            switch(optiune) { //instructiune pentru alegerea optiunii introduse de utilizator
                 case 1:
                     service.vizualzareDatePersonale();
                     break;
@@ -87,17 +87,17 @@ public class Main {
                     ok = false;
                     System.out.println("\n╔════════════════════════════════════════════╗");
                     System.out.println("║                                            ║");
-                    System.out.println("║    Vă mulțumim că ați folosit placeIT!     ║");
-                    System.out.println("║        La revedere și poftă bună!          ║");
+                    System.out.println("║    Va multumim ca ati folosit placeIT!     ║");
+                    System.out.println("║        La revedere si pofta buna!          ║");
                     System.out.println("║                                            ║");
                     System.out.println("╚════════════════════════════════════════════╝");
                     break;
                 default:
-                    System.out.println("\n⚠ Opțiune invalidă! Vă rugăm să alegeți un număr de la 0 la 12.");
+                    System.out.println("\n⚠ Optiune invalida! Va rugam sa alegeti un numar de la 0 la 12.");
             }
 
             if (ok && optiune != 0) {
-                System.out.print("\n↵ Apăsați ENTER pentru a reveni la meniu...");
+                System.out.print("\n↵ Apasati ENTER pentru a reveni la meniu...");
                 scan.nextLine();
             }
             System.out.println();
