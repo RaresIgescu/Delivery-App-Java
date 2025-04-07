@@ -32,6 +32,7 @@ public class Curier extends Persoana {
         return reviewsString;
     }
 
+    @Override
     public String toString() {
         return  super.toString() + "\nEtnie: \t\t" + nationalitate + "\nReviews: " + toReviews(reviews);
     }

@@ -68,6 +68,7 @@ public class Restaurant {
         return reviewsString;
     }
 
+    @Override
     public String toString() {
         return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii Restaurant -- " + toReviews(reviews);
     }

@@ -32,6 +32,7 @@ public class Review {
         this.comentariu = comentariu;
     }
 
+    @Override
     public String toString() {
         return "\nScor: " + scor + "\nComentariu: " + comentariu + "\n";
     }

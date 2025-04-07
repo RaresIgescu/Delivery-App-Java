@@ -30,6 +30,7 @@ public class Persoana {
         this.prenume = prenume;
     }
 
+    @Override
     public String toString() {
         return "Nume: \t\t" + nume + "\nPrenume: \t" + prenume;
     }
