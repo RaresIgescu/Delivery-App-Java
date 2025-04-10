@@ -1,3 +1,5 @@
+package src.com.unibuc.pao.proiect.model;
+
 import java.util.ArrayList;
 import java.util.List;
 

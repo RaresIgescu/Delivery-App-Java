@@ -1,3 +1,5 @@
+package src.com.unibuc.pao.proiect.model;
+
 public class cardCredit {
     private int id;
     private String numarCard;

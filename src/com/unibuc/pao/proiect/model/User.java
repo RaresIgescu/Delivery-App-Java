@@ -1,3 +1,5 @@
+package src.com.unibuc.pao.proiect.model;
+
 public class User extends Persoana {
     private int varsta;
     private String oras;

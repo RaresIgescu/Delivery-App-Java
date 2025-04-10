@@ -1,3 +1,5 @@
+package src.com.unibuc.pao.proiect.model;
+
 public class Produs {
     private int id;
     private String nume;

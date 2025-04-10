@@ -1,4 +1,4 @@
-import java.util.List;
+package src.com.unibuc.pao.proiect.model;
 
 public class Review {
     private int id;

@@ -1,3 +1,7 @@
+package src.com.unibuc.pao.proiect.ui;
+
+import src.com.unibuc.pao.proiect.service.Service;
+
 import java.util.Scanner;
 
 public class Main {
