@@ -897,7 +897,7 @@ public class Service {
         }
 
         System.out.println("\n╔════════════════════════════════════╗");
-        System.out.println("║   CONFIRMARE sTERGERE COMANDA      ║");
+        System.out.println("║   CONFIRMARE STERGERE COMANDA      ║");
         System.out.println("╠════════════════════════════════════╣");
         System.out.println("║ Sigur doriti sa stergeti comanda?  ║");
         System.out.println("║ 1. Da                              ║");
