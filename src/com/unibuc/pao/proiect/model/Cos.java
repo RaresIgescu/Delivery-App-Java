@@ -60,10 +60,11 @@ public class Cos {
 
             //%-19.2f - va afisa un float (sau double) aliniat la stanga (de la -)
             //pe o lungime exacta de 19 caractere si cu exact 2 zecimale
-            sb.append(String.format("║ %2d. %-30s ║\n", index++, p.getNume()));
-            sb.append(String.format("║    %-6s: %-19.2f RON ║\n", "Pret", p.getPret()));
-            sb.append("╠════════════════════════════════════╣\n");
+            sb.append(String.format("%d. %-30s\n", index++, p.getNume()));
+            sb.append(String.format("   Pret: %.2f RON\n", p.getPret()));
+            sb.append("\n");
         }
+
         return sb.toString();
     }
 
