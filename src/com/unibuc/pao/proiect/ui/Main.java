@@ -15,7 +15,7 @@ public class Main {
         System.out.println("║   Cea mai noua platforma de food delivery  ║");
         System.out.println("║                                            ║");
         System.out.println("╚════════════════════════════════════════════╝");
-        System.out.println("\n📋 Mai intai de toate va rog sa introduceti datele personale:");
+        System.out.println("\nMai intai de toate va rog sa introduceti datele personale:");
         service.setareDatePersonale(); //functie care tine minte datele utilizatorului
 
         boolean ok = true;
@@ -24,7 +24,7 @@ public class Main {
             System.out.println("║                MENIU PRINCIPAL             ║");
             System.out.println("╠════════════════════════════════════════════╣");
             System.out.println("║                                            ║");
-            System.out.println("║            📋 INTEROGARI                   ║");
+            System.out.println("║            INTEROGARI                   ║");
             System.out.println("║                                            ║");
             System.out.println("║ 1. Vizualizare date personale              ║");
             System.out.println("║ 2. Vizualizare meniu restaurante           ║");
@@ -32,7 +32,7 @@ public class Main {
             System.out.println("║ 4. Vizualizare cos de cumparaturi          ║");
             System.out.println("║ 5. Filtrare restaurante dupa tip           ║");
             System.out.println("║                                            ║");
-            System.out.println("║            ⚡ ACTIUNI                       ║");
+            System.out.println("║            ACTIUNI                       ║");
             System.out.println("║                                            ║");
             System.out.println("║ 6. Modificare date personale               ║");
             System.out.println("║ 7. Adaugare produs in cos                  ║");
@@ -45,7 +45,7 @@ public class Main {
             System.out.println("║ 0. Iesire din aplicatie                    ║");
             System.out.println("║                                            ║");
             System.out.println("╚════════════════════════════════════════════╝");
-            System.out.print("\n➤ Alegeti o optiune: ");
+            System.out.print("\nAlegeti o optiune: ");
 
             int optiune = scan.nextInt();
             scan.nextLine();
@@ -97,11 +97,11 @@ public class Main {
                     System.out.println("╚════════════════════════════════════════════╝");
                     break;
                 default:
-                    System.out.println("\n⚠ Optiune invalida! Va rugam sa alegeti un numar de la 0 la 12.");
+                    System.out.println("\nOptiune invalida! Va rugam sa alegeti un numar de la 0 la 12.");
             }
 
             if (ok && optiune != 0) {
-                System.out.print("\n↵ Apasati ENTER pentru a reveni la meniu...");
+                System.out.print("\nApasati ENTER pentru a reveni la meniu...");
                 scan.nextLine();
             }
             System.out.println();

@@ -72,6 +72,6 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii src.com.unibuc.pao.proiect.model.Restaurant -- " + toReviews(reviews);
+        return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii Restaurant -- " + toReviews(reviews);
     }
 }

@@ -53,7 +53,7 @@ public class Cos {
         int index = 1;
         for (Produs p : produse) {
             // %2d -  va afisa un int, aliniat (implicit) la dreapta pe exact 2 caractere
-            // adica daca v-a intalnit un numar de o cifra, de ex 5, il va afisa " 5"
+            // adica daca v-a intalni un numar de o cifra, de ex 5, il va afisa " 5"
 
             // %-30s - va afisa un string, aliniat la stanga (pentru ca avem -), pe o lungime
             // de 30 de caractere
@@ -61,7 +61,7 @@ public class Cos {
             //%-19.2f - va afisa un float (sau double) aliniat la stanga (de la -)
             //pe o lungime exacta de 19 caractere si cu exact 2 zecimale
             sb.append(String.format("║ %2d. %-30s ║\n", index++, p.getNume()));
-            sb.append(String.format("║    %-6s: %-19.2f RON ║\n", "Preț", p.getPret()));
+            sb.append(String.format("║    %-6s: %-19.2f RON ║\n", "Pret", p.getPret()));
             sb.append("╠════════════════════════════════════╣\n");
         }
         return sb.toString();

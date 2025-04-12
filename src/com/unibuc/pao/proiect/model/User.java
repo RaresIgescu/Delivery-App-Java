@@ -36,7 +36,7 @@ public class User extends Persoana {
     @Override
     public String toString() {
         return "\n======================================\n" +
-                "Acestea sunt datele dumneavoastră personale:\n" +
+                "Acestea sunt datele dumneavoastra personale:\n" +
                 "======================================\n" +
                 super.toString() + "\n" +
                 "Varsta:  \t" + varsta + "\n" +
