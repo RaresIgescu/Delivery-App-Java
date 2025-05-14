@@ -3,9 +3,6 @@ package src.com.unibuc.pao.proiect.service;
 import src.com.unibuc.pao.proiect.model.*;
 import java.time.LocalDate;
 import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Service {
     private User user;
