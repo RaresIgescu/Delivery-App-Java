@@ -4,6 +4,7 @@ import src.com.unibuc.pao.proiect.model.*;
 import java.time.LocalDate;
 import java.util.*;
 
+
 public class Service {
     private User user;
     private final Set<Restaurant> restaurants;
@@ -16,7 +17,6 @@ public class Service {
 
     public Service() {
         this.random = new Random();
-
         this.user = null;
         this.restaurants = new LinkedHashSet<>();
 
