@@ -1,5 +1,7 @@
 package src.com.unibuc.pao.proiect.ui;
 
+import src.com.unibuc.pao.proiect.model.Produs;
+import src.com.unibuc.pao.proiect.service.ProdusService;
 import src.com.unibuc.pao.proiect.service.Service;
 
 import java.util.Scanner;
@@ -13,6 +15,9 @@ public class Main {
 
         System.out.println("\nBine ai venit pe placeIT!");
         System.out.println("Cea mai noua platforma de food delivery.\n");
+
+        ProdusService produsService = new ProdusService();
+        produsService.adaugaProdus(new Produs(0, "Pizza Margherita", 35.0, "Disponibil!"));
 
         System.out.println("Inainte de toate, te rugam sa completezi datele tale personale:");
         service.setareDatePersonale();
