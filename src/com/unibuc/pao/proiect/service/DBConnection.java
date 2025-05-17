@@ -3,14 +3,16 @@ package src.com.unibuc.pao.proiect.service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.io.InputStream;
 
 public class DBConnection {
     private static DBConnection instance;
     private Connection connection;
 
-    String url = "jdbc:postgresql://localhost:5432/food_delivery";
-    String user = "postgres";
-    String password = "Rares_2004";
+    String url = System.getenv("DB_URL");
+    String user = System.getenv("DB_USER");
+    String password = System.getenv("DB_PASSWORD");
 
     private DBConnection() {
         try {
