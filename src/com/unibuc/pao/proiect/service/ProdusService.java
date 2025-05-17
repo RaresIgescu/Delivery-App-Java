@@ -19,9 +19,8 @@ public class ProdusService {
             stm.setString(4, produs.getDisponibilitate());
 
             stm.executeUpdate();
-            System.out.println("Produs adaugat!");
         } catch (SQLException e) {
-            System.out.println("Eroare la adaugare persaoan: " + e.getMessage());
+            System.out.println("Eroare la adaugare produs: " + e.getMessage());
         }
     }
 }
