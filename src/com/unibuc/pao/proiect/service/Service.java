@@ -14,7 +14,7 @@ public class Service {
     private final List<Comanda> comenzi;
     private final Set<cardCredit> carduri;
     private final Random random;
-
+    ProdusService produsService = new ProdusService();
     public Service() {
         this.random = new Random();
         this.user = null;
@@ -50,17 +50,29 @@ public class Service {
                 new Produs(3, "Canoli cu Fistic", 22.50, "Disponibil!")
         );
 
+//        for(Produs produs : produseAveForchetta) {
+//            produsService.adaugaProdus(produs);
+//        }
+
         List<Produs> produseLinea = Arrays.asList(
                 new Produs(4, "Ciorba de burta", 30.20, "Indisponibil"),
                 new Produs(5, "Sarmale cu mamaliga", 45.70, "Disponibil!"),
                 new Produs(6, "Mici la gratar cu mustar", 28.90, "Disponibil!")
         );
 
+//        for(Produs produs : produseLinea) {
+//            produsService.adaugaProdus(produs);
+//        }
+
         List<Produs> produseBig5 = Arrays.asList(
                 new Produs(7, "Burger American", 50.0, "Disponibil!"),
                 new Produs(8, "Coaste BBQ", 70.0, "Disponibil!"),
                 new Produs(9, "Clatite pufoase", 35.50, "Disponibil!")
         );
+
+//        for(Produs produs : produseBig5) {
+//            produsService.adaugaProdus(produs);
+//        }
 
         for (Restaurant r : this.restaurants) {
             switch (r.getNume()) {
