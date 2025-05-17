@@ -16,9 +16,6 @@ public class Main {
         System.out.println("\nBine ai venit pe placeIT!");
         System.out.println("Cea mai noua platforma de food delivery.\n");
 
-        ProdusService produsService = new ProdusService();
-        produsService.adaugaProdus(new Produs(0, "Pizza Margherita", 35.0, "Disponibil!"));
-
         System.out.println("Inainte de toate, te rugam sa completezi datele tale personale:");
         service.setareDatePersonale();
 
