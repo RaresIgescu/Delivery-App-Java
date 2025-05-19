@@ -1,6 +1,8 @@
 package src.com.unibuc.pao.proiect.service;
 
 import src.com.unibuc.pao.proiect.model.*;
+
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -12,9 +14,11 @@ public class Service {
     private final List<Curier> curieri;
     private Cos cos;
     private final List<Comanda> comenzi;
-    private final Set<cardCredit> carduri;
+    private Set<cardCredit> carduri;
     private final Random random;
-    ProdusService produsService = new ProdusService();
+
+//    ProdusService produsService = new ProdusService();
+    CardService cardService = new CardService();
     public Service() {
         this.random = new Random();
         this.user = null;
@@ -362,7 +366,10 @@ public class Service {
         int optiunePlata = scanner.nextInt();
         scanner.nextLine();
 
-        if (optiunePlata == 2 && carduri.isEmpty()) {
+        Set<cardCredit> carduriBD;
+        carduriBD = cardService.getAllCards();
+
+        if (optiunePlata == 2 && carduriBD.isEmpty()) {
             System.out.println("\nNu aveti carduri de credit salvate. Adaugati un card si incercati din nou.");
             return;
         }
@@ -370,12 +377,12 @@ public class Service {
         if (optiunePlata == 2) {
             System.out.println("\nSelectati cardul de credit:");
             int temp = 1;
-            for (cardCredit card : carduri) {
+            for (cardCredit card : carduriBD) {
                 System.out.printf("%d. %s%n", temp++, card.toString());
             }
             System.out.print("Alegeti cardul: ");
             int cardIndex = scanner.nextInt();
-            while (cardIndex < 1 || cardIndex > carduri.size()) {
+            while (cardIndex < 1 || cardIndex > carduriBD.size()) {
                 System.out.print("Optiune invalida. Introduceti un numar valid: ");
                 cardIndex = scanner.nextInt();
             }
@@ -529,6 +536,7 @@ public class Service {
 
         if (confirmare.equalsIgnoreCase("Da")) {
             carduri.add(new cardCredit(carduri.size() + 1, numarCard, tipCard, CVV));
+            cardService.adaugaCard(new cardCredit(carduri.size(), numarCard, tipCard, CVV));
             System.out.println("\nCard adaugat cu succes!");
         } else {
             System.out.println("\nOperatiune anulata. Cardul nu a fost salvat.");
@@ -773,4 +781,109 @@ public class Service {
         System.out.printf("Total: %.2f\n", comandaStearsa.getPretTotal());
     }
 
+    public void modificareCard() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nModificare Card de Credit");
+
+        Set<cardCredit> carduriBD;
+        carduriBD = cardService.getAllCards();
+
+        System.out.println("\nSelectati cardul de credit:");
+        int temp = 1;
+        for (cardCredit card : carduriBD) {
+            System.out.printf("%d. %s%n", temp++, card.toString());
+        }
+        System.out.print("Alegeti cardul: ");
+        int cardIndex = scanner.nextInt();
+        while (cardIndex < 1 || cardIndex > carduriBD.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            cardIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        String numarCard;
+        while (true) {
+            System.out.println("\nIntroduceti numarul cardului (16 cifre):");
+            System.out.println(" • Exemplu: 1234 5678 9012 3456");
+            System.out.println(" • Sau: 1234567890123456");
+            System.out.print("Numar Card: ");
+            numarCard = scanner.nextLine().replaceAll(" ", "");
+
+            if (numarCard.matches("\\d{16}")) {
+                numarCard = numarCard.replaceAll("(\\d{4})(?=\\d)", "$1 ");
+                break;
+            } else {
+                System.out.println("\nEroare: Numarul cardului trebuie sa contina exact 16 cifre!");
+            }
+        }
+
+        String tipCard;
+        while (true) {
+            System.out.println("\nIntroduceti tipul cardului (exemplu: Visa, MasterCard):");
+            System.out.print("Tip Card: ");
+            tipCard = scanner.nextLine();
+
+            if (tipCard.matches("[a-zA-Z\\s]{1,15}")) {
+                tipCard = tipCard.substring(0, 1).toUpperCase() + tipCard.substring(1).toLowerCase();
+                break;
+            } else {
+                System.out.println("\nEroare: Tipul cardului poate contine doar litere (maxim 15 caractere)!");
+            }
+        }
+
+        String CVV;
+        while (true) {
+            System.out.println("\nIntroduceti codul CVV (3 cifre pe spatele cardului):");
+            System.out.print("CVV: ");
+            CVV = scanner.nextLine();
+
+            if (CVV.matches("\\d{3}")) {
+                break;
+            } else {
+                System.out.println("\nEroare: CVV-ul trebuie sa contina exact 3 cifre!");
+            }
+        }
+
+        System.out.println("\nConfirmare Card:");
+        System.out.printf("Tip Card: %-19s\n", tipCard);
+        System.out.printf("Numar Card: %-19s\n", numarCard);
+        System.out.printf("CVV: %-19s\n", "***");
+
+        System.out.print("\nConfirmati adaugarea cardului? (Da/Nu): ");
+        String confirmare = scanner.nextLine();
+
+        if (confirmare.equalsIgnoreCase("Da")) {
+            cardService.updateCard(cardIndex,numarCard, tipCard, CVV);
+            carduri = cardService.getAllCards();
+            System.out.println("\nCard adaugat cu succes!");
+        } else {
+            System.out.println("\nOperatiune anulata. Cardul nu a fost salvat.");
+        }
+    }
+
+    public void stergereCard() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nStergere Card de Credit");
+
+        Set<cardCredit> carduriBD;
+        carduriBD = cardService.getAllCards();
+
+        System.out.println("\nSelectati cardul de credit:");
+        int temp = 1;
+        for (cardCredit card : carduriBD) {
+            System.out.printf("%d. %s%n", temp++, card.toString());
+        }
+        System.out.print("Alegeti cardul: ");
+        int cardIndex = scanner.nextInt();
+        while (cardIndex < 1 || cardIndex > carduriBD.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            cardIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        cardService.deleteCard(cardIndex);
+        System.out.println("Cardul a fost sters cu succes");
+    }
 }
