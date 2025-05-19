@@ -37,6 +37,7 @@ public class Main {
             System.out.println("12. Stergere comandă din istoric");
             System.out.println("13. Modificare card de credit.");
             System.out.println("14. Stergere card de credit.");
+            System.out.println("15. Stergere date personale");
             System.out.println("0. Iesire\n");
 
             System.out.print("Alege o optiune (0-12): ");
@@ -60,7 +61,7 @@ public class Main {
                     service.filtrareRestaurante();
                     break;
                 case 6:
-                    service.setareDatePersonale();
+                    service.modificareDatePersonale();
                     break;
                 case 7:
                     service.adaugareProdusInCos();
@@ -85,6 +86,10 @@ public class Main {
                     break;
                 case 14:
                     service.stergereCard();
+                    break;
+                case 15:
+                    continueRunning = false;
+                    service.stergereDatePersonale();
                     break;
                 case 0:
                     continueRunning = false;
