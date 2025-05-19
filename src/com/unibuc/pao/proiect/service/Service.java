@@ -19,6 +19,7 @@ public class Service {
 
 //    ProdusService produsService = new ProdusService();
     CardService cardService = new CardService();
+    UserService userService = new UserService();
     public Service() {
         this.random = new Random();
         this.user = null;
@@ -117,6 +118,80 @@ public class Service {
 
         int id = 1;
 
+        User user = userService.readDatePersonale();
+
+        if (user == null) {
+            System.out.println("\n******************************");
+            System.out.println("    Introducerea datelor tale");
+            System.out.println("******************************\n");
+
+            System.out.print("Nume (4-20 litere, fara cifre): ");
+            String nume = scanner.nextLine();
+            while (!nume.matches("^[a-zA-Z]{4,20}$")) {
+                System.out.println("Numele nu este valid...");
+                System.out.println("Asigura-te ca este intre 4 si 20 de litere, fara cifre.");
+                System.out.print("Incearca din nou: ");
+                nume = scanner.nextLine();
+            }
+
+            System.out.print("Prenume (4-20 litere, fara cifre): ");
+            String prenume = scanner.nextLine();
+            while (!prenume.matches("^[a-zA-Z-]{4,20}$")) {
+                System.out.println("Prenumele nu este valid...");
+                System.out.println("Asigura-te ca este intre 4 si 20 de litere, cu posibilitatea de a folosi cratime.");
+                System.out.print("Incearca din nou: ");
+                prenume = scanner.nextLine();
+            }
+
+            System.out.print("Cati ani ai? (16-100): ");
+            int varsta;
+            while (true) {
+                try {
+                    varsta = scanner.nextInt();
+                    scanner.nextLine();
+                    if (varsta >= 16 && varsta <= 100) break;
+                    System.out.println("Varsta trebuie sa fie intre 16 si 100.");
+                    System.out.print("Te rog sa incerci din nou: ");
+                } catch (Exception e) {
+                    scanner.nextLine();
+                    System.out.println("A aparut o eroare. Te rog sa introduci un numar valid.");
+                    System.out.print("Incearca din nou: ");
+                }
+            }
+
+            System.out.print("Oras (max 25 caractere): ");
+            String oras = scanner.nextLine();
+            while (!oras.matches("^[a-zA-Z\\s]{1,25}$")) {
+                System.out.println("Orasul nu este valid...");
+                System.out.println("Asigura-te ca este intre 1 si 25 de caractere, folosind doar litere si spatii.");
+                System.out.print("Incearca din nou: ");
+                oras = scanner.nextLine();
+            }
+
+            System.out.print("Strada (max 30 caractere): ");
+            String strada = scanner.nextLine();
+            while (!strada.matches("^[a-zA-Z0-9\\s]{1,30}$")) {
+                System.out.println("Strada nu este valida...");
+                System.out.println("Asigura-te ca este intre 1 si 30 de caractere, folosind litere, cifre si spatii.");
+                System.out.print("Incearca din nou: ");
+                strada = scanner.nextLine();
+            }
+
+            user = new User(id, nume, prenume, varsta, oras, strada);
+            userService.createDatePersonale(user);
+
+            System.out.println("\n******************************");
+            System.out.println("   DATE SALVATE CU SUCCES!");
+            System.out.println("******************************");
+            System.out.println("\nBine ai venit, " + nume + " " + prenume + "!");
+        }
+        else {
+            System.out.println("Bine ai venit, " + user.getNume() + " " + user.getPrenume() + "!");
+        }
+    }
+
+    public void modificareDatePersonale() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("\n******************************");
         System.out.println("    Introducerea datelor tale");
         System.out.println("******************************\n");
@@ -173,7 +248,10 @@ public class Service {
             strada = scanner.nextLine();
         }
 
+        int id = 1;
+
         user = new User(id, nume, prenume, varsta, oras, strada);
+        userService.modificareDatePersonale(nume, prenume, varsta, oras, strada);
 
         System.out.println("\n******************************");
         System.out.println("   DATE SALVATE CU SUCCES!");
@@ -181,8 +259,14 @@ public class Service {
         System.out.println("\nBine ai venit, " + nume + " " + prenume + "!");
     }
 
+    public void stergereDatePersonale() {
+        userService.stergereDatePersonale();
+        System.out.println("Datele dvs. personale au fost sterse cu succes.");
+        System.out.println("Acum aplicatia se va inchide iar la repornire va trebui sa va setati din nou datele.");
+    }
 
     public void vizualzareDatePersonale() {
+        User user = userService.readDatePersonale();
         System.out.println(user.toString());
     }
 
