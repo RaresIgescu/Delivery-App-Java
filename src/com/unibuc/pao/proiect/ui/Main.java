@@ -35,6 +35,8 @@ public class Main {
             System.out.println("10. Adaugare review pentru restaurant");
             System.out.println("11. Adaugare review pentru curier");
             System.out.println("12. Stergere comandă din istoric");
+            System.out.println("13. Modificare card de credit.");
+            System.out.println("14. Stergere card de credit.");
             System.out.println("0. Iesire\n");
 
             System.out.print("Alege o optiune (0-12): ");
@@ -77,6 +79,12 @@ public class Main {
                     break;
                 case 12:
                     service.deleteOrder();
+                    break;
+                case 13:
+                    service.modificareCard();
+                    break;
+                case 14:
+                    service.stergereCard();
                     break;
                 case 0:
                     continueRunning = false;
