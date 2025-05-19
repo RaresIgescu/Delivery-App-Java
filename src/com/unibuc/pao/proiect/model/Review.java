@@ -4,6 +4,8 @@ public class Review {
     private int id;
     private double scor;
     private String comentariu;
+    //de implementat pt cine e review-ul
+    //si sa aloc inca un camp de id pt restaurant // curier
 
     public Review(int id, double scor, String comentariu) {
         this.id = id;
@@ -36,5 +38,4 @@ public class Review {
     public String toString() {
         return "\nScor: " + scor + "\nComentariu: " + comentariu + "\n";
     }
-
 }
