@@ -2,13 +2,11 @@ package src.com.unibuc.pao.proiect.service;
 
 import src.com.unibuc.pao.proiect.model.*;
 
-import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.*;
 
 
 public class Service {
-    private User user;
     private final Set<Restaurant> restaurants;
     private final Map<Restaurant, List<Produs>> meniuri;
     private final List<Curier> curieri;
@@ -20,28 +18,37 @@ public class Service {
 //    ProdusService produsService = new ProdusService();
     CardService cardService = new CardService();
     UserService userService = new UserService();
+    ReviewService reviewService = new ReviewService();
+    List<Review> reviewsLasate = new ArrayList<>();
     public Service() {
         this.random = new Random();
-        this.user = null;
         this.restaurants = new LinkedHashSet<>();
 
-        Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian",
-                Arrays.asList(
-                        new Review(1, 5, "Foarte bun."),
-                        new Review(2, 2, "Am gasit par in mancare.")
-                )
+        List<Review> reviewsAveForchetta = Arrays.asList(
+                new Review(1, 5, "Foarte bun."),
+                new Review(2, 2, "Am gasit par in mancare.")
         );
 
-        Restaurant linea = new Restaurant(2, "Linea", "Calea Stefan cel Mare", "Iasi", "Romanesc",
-                Arrays.asList(
-                        new Review(1, 4, "Mancare delicioasa dar foarte zgomotos."),
-                        new Review(2, 3, "Chelnerul a fost nepoliticos")
-                )
+        Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian", reviewsAveForchetta);
+
+        for(Review review : reviewsAveForchetta) {
+            reviewService.adaugaReview(review);
+        }
+
+        List<Review> reviewsLinea = Arrays.asList(
+                new Review(3, 4, "Mancare delicioasa dar foarte zgomotos."),
+                new Review(4, 3, "Chelnerul a fost nepoliticos")
         );
 
-        Restaurant big5 = new Restaurant(3, "Big 5", "Cerbului", "Sibiu", "American",
-                new ArrayList<>()
-        );
+        Restaurant linea = new Restaurant(2, "Linea", "Calea Stefan cel Mare", "Iasi", "Romanesc", reviewsLinea);
+
+        for(Review review : reviewsLinea) {
+            reviewService.adaugaReview(review);
+        }
+
+        List<Review> reviewsBig5 = Arrays.asList();
+
+        Restaurant big5 = new Restaurant(3, "Big 5", "Cerbului", "Sibiu", "American", reviewsBig5);
 
         this.restaurants.add(aveForchetta);
         this.restaurants.add(linea);
@@ -248,9 +255,6 @@ public class Service {
             strada = scanner.nextLine();
         }
 
-        int id = 1;
-
-        user = new User(id, nume, prenume, varsta, oras, strada);
         userService.modificareDatePersonale(nume, prenume, varsta, oras, strada);
 
         System.out.println("\n******************************");
@@ -691,14 +695,17 @@ public class Service {
         System.out.print(" ");
         String comentariu = scanner.nextLine();
 
-        Review reviewNou = new Review(1, scor, comentariu);
+        List<Review> allReviews = reviewService.readReviews();
 
         List<Review> reviews = restaurant.getReviews();
         if (reviews == null) {
             reviews = new ArrayList<>();
         }
+        Review reviewNou = new Review(allReviews.size() + 1, scor, comentariu);
         reviews.add(reviewNou);
+        reviewsLasate.add(reviewNou);
         restaurant.setReviews(reviews);
+        reviewService.adaugaReview(reviewNou);
 
         System.out.println("\nReview adaugat cu succes!");
         System.out.println("\nMultumim pentru feedback-ul dumneavoastra despre:");
@@ -769,14 +776,18 @@ public class Service {
         System.out.print(" ");
         String comentariu = scanner.nextLine();
 
-        Review reviewNou = new Review(1, scor, comentariu);
+
+        List<Review> allReviews = reviewService.readReviews();
 
         List<Review> reviews = curierAles.getReviews();
         if (reviews == null) {
             reviews = new ArrayList<>();
         }
+        Review reviewNou = new Review(allReviews.size() + 1, scor, comentariu);
         reviews.add(reviewNou);
+        reviewsLasate.add(reviewNou);
         curierAles.setReviews(reviews);
+        reviewService.adaugaReview(reviewNou);
 
         System.out.println("\nReview adaugat cu succes!");
         System.out.println("\nMultumim pentru feedback-ul dumneavoastra despre:");
@@ -969,5 +980,48 @@ public class Service {
 
         cardService.deleteCard(cardIndex);
         System.out.println("Cardul a fost sters cu succes");
+    }
+
+    public void modificareReview() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nSelectati review-ul pe care vreti sa-l modificati: ");
+        int temp = 1;
+        for (Review review : reviewsLasate) {
+            System.out.printf("%d. %s%n", temp++, review.toString());
+        }
+        System.out.print("Alegeti review-ul: ");
+        int reviewIndex = scanner.nextInt();
+        while (reviewIndex < 1 || reviewIndex > reviewsLasate.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            reviewIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        double scor;
+        while (true) {
+            System.out.print("\nNota dvs. (1-5 stele): ");
+            try {
+                scor = scanner.nextDouble();
+                scanner.nextLine();
+
+                if (scor < 1 || scor > 5) {
+                    System.out.println("Nota trebuie sa fie intre 1 si 5!");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Introduceti doar numere!");
+                scanner.nextLine();
+            }
+        }
+
+        System.out.println("\nSpuneti-ne parerea dvs. (max 200 caractere):");
+        System.out.print(" ");
+        String comentariu = scanner.nextLine();
+
+        reviewService.updateReview(reviewsLasate.size() + 4, scor, comentariu);
+
+        System.out.println("Review actualizat cu succes.");
+
     }
 }
