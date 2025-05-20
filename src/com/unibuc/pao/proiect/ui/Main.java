@@ -95,6 +95,9 @@ public class Main {
                 case 16:
                     service.modificareReview();
                     break;
+                case 17:
+                    service.stergereReview();
+                    break;
                 case 0:
                     continueRunning = false;
                     System.out.println("\nMultumim ca ai folosit placeIT! La revedere si pofta buna!");
