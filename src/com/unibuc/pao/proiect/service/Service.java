@@ -19,7 +19,6 @@ public class Service {
     CardService cardService = new CardService();
     UserService userService = new UserService();
     ReviewService reviewService = new ReviewService();
-    List<Review> reviewsLasate = new ArrayList<>();
     public Service() {
         this.random = new Random();
         this.restaurants = new LinkedHashSet<>();
@@ -31,20 +30,12 @@ public class Service {
 
         Restaurant aveForchetta = new Restaurant(1, "AveForchetta", "Aviatorilor", "Bucuresti", "Italian", reviewsAveForchetta);
 
-        for(Review review : reviewsAveForchetta) {
-            reviewService.adaugaReview(review);
-        }
-
         List<Review> reviewsLinea = Arrays.asList(
                 new Review(3, 4, "Mancare delicioasa dar foarte zgomotos."),
                 new Review(4, 3, "Chelnerul a fost nepoliticos")
         );
 
         Restaurant linea = new Restaurant(2, "Linea", "Calea Stefan cel Mare", "Iasi", "Romanesc", reviewsLinea);
-
-        for(Review review : reviewsLinea) {
-            reviewService.adaugaReview(review);
-        }
 
         List<Review> reviewsBig5 = Arrays.asList();
 
@@ -695,13 +686,13 @@ public class Service {
         System.out.print(" ");
         String comentariu = scanner.nextLine();
 
-        List<Review> allReviews = reviewService.readReviews();
+        List<Review> reviewsLasate = reviewService.readReviews();
 
         List<Review> reviews = restaurant.getReviews();
         if (reviews == null) {
             reviews = new ArrayList<>();
         }
-        Review reviewNou = new Review(allReviews.size() + 1, scor, comentariu);
+        Review reviewNou = new Review(reviewsLasate.size() + 1, scor, comentariu);
         reviews.add(reviewNou);
         reviewsLasate.add(reviewNou);
         restaurant.setReviews(reviews);
@@ -777,13 +768,13 @@ public class Service {
         String comentariu = scanner.nextLine();
 
 
-        List<Review> allReviews = reviewService.readReviews();
+        List<Review> reviewsLasate = reviewService.readReviews();
 
         List<Review> reviews = curierAles.getReviews();
         if (reviews == null) {
             reviews = new ArrayList<>();
         }
-        Review reviewNou = new Review(allReviews.size() + 1, scor, comentariu);
+        Review reviewNou = new Review(reviewsLasate.size() + 1, scor, comentariu);
         reviews.add(reviewNou);
         reviewsLasate.add(reviewNou);
         curierAles.setReviews(reviews);
@@ -985,6 +976,9 @@ public class Service {
     public void modificareReview() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nSelectati review-ul pe care vreti sa-l modificati: ");
+
+        List<Review> reviewsLasate = reviewService.readReviews();
+
         int temp = 1;
         for (Review review : reviewsLasate) {
             System.out.printf("%d. %s%n", temp++, review.toString());
@@ -1019,9 +1013,33 @@ public class Service {
         System.out.print(" ");
         String comentariu = scanner.nextLine();
 
-        reviewService.updateReview(reviewsLasate.size() + 4, scor, comentariu);
+        reviewService.updateReview(reviewIndex, scor, comentariu);
 
         System.out.println("Review actualizat cu succes.");
+
+    }
+
+    public void stergereReview() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nSelectati review-ul pe care vreti sa-l stergeti: ");
+
+        List<Review> reviewsLasate = reviewService.readReviews();
+
+        int temp = 1;
+        for (Review review : reviewsLasate) {
+            System.out.printf("%d. %s%n", temp++, review.toString());
+        }
+        System.out.print("Alegeti review-ul: ");
+        int reviewIndex = scanner.nextInt();
+        while (reviewIndex < 1 || reviewIndex > reviewsLasate.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            reviewIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        reviewService.deleteReview(reviewIndex);
+
+        System.out.println("Review sters cu succes.");
 
     }
 }
