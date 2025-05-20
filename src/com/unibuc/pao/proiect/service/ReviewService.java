@@ -58,4 +58,16 @@ public class ReviewService {
             System.out.println("Eroare la modificarea review-ului: " + e.getMessage());
         }
     }
+
+    public void deleteReview(int id) {
+        String sql = "DELETE FROM review WHERE id = ?";
+
+        try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Eroare la stergerea reviewului: " + e.getMessage());
+        }
+    }
 }
