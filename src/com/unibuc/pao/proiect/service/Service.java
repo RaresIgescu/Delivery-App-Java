@@ -15,7 +15,7 @@ public class Service {
     private Set<cardCredit> carduri;
     private final Random random;
 
-//    ProdusService produsService = new ProdusService();
+    ProdusService produsService = new ProdusService();
     CardService cardService = new CardService();
     UserService userService = new UserService();
     ReviewService reviewService = new ReviewService();
@@ -294,26 +294,39 @@ public class Service {
     }
 
     public void vizualizareCos() {
-        if (this.cos.nrProduse() == 0) {
+        List<Produs> produseInCos = produsService.readProduseCos();
+        if (produseInCos.isEmpty()) {
             System.out.println("\nCosul tau de cumparaturi este gol.");
             System.out.println("Adauga produse pentru a vizualiza continutul cosului.");
         } else {
             System.out.println("\n--- Cosul tau de cumparaturi ---");
-            System.out.println("Restaurant: " + cos.getRestaurant().getNume());
 
             System.out.println("\nProduse adaugate in cos:");
 
-            System.out.println(cos.toString());
+            double totalDePlata = 0;
 
-            System.out.printf("\nTOTAL: %.2f RON\n", cos.getTotalDePlata());
+            for(Produs produs : produseInCos) {
+                System.out.println(produs.toString());
+                totalDePlata += produs.getPret();
+            }
+
+
+            System.out.printf("\nTOTAL: %.2f RON\n", totalDePlata);
 
             System.out.println("\nPentru a plasa comanda, selecteaza optiunea 8 din meniul principal.");
         }
     }
 
     public void adaugareProdusInCos() {
+        List<Produs> produse = produsService.readProduseCos();
+        int id = produsService.getRestaurantId();
         Scanner scanner = new Scanner(System.in);
-        Restaurant restaurantAles = this.cos.getRestaurant();
+        Restaurant restaurantAles = null;
+        for(Restaurant restaurant : this.restaurants) {
+            if (restaurant.getId() == id) {
+                restaurantAles = restaurant;
+            }
+        }
 
         System.out.println("\n--- Adaugare produs in cos ---");
 
@@ -346,9 +359,8 @@ public class Service {
         }
 
         Produs produsAles = alegeProdus(scanner, restaurantAles);
-
-        List<Produs> produse = new ArrayList<>(this.cos.getProduse());
-        produse.add(produsAles);
+        Produs produsAlesDB = new Produs(produse.size() + 1, produsAles.getNume(), produsAles.getPret(), produsAles.getDisponibilitate());
+        produsService.adaugaInCos(produsAlesDB, restaurantAles);
 
         double total = 0;
         for (Produs produs : produse) {
@@ -478,7 +490,7 @@ public class Service {
         Curier curierAleatoriu = curieri.get(random.nextInt(curieri.size()));
 
         Comanda comandaPlasata = new Comanda(
-                1, this.cos.getProduse(), this.cos.getRestaurant(),
+                comenzi.size() + 1, this.cos.getProduse(), this.cos.getRestaurant(),
                 this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu
         );
         comenzi.add(comandaPlasata);
@@ -1042,4 +1054,65 @@ public class Service {
         System.out.println("Review sters cu succes.");
 
     }
+
+    public void modificareProdus() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nSchimba produs in cos: ");
+
+        List<Produs> produseDB;
+        produseDB = produsService.readProduseCos();
+
+        System.out.println("\nSelectati produsul:");
+        int temp = 1;
+        for (Produs produs : produseDB) {
+            System.out.printf("%d. %s%n", temp++, produs.toString());
+        }
+        System.out.print("Alegeti produsul: ");
+        int produsIndex = scanner.nextInt();
+        while (produsIndex < 1 || produsIndex > produseDB.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            produsIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        int id = produsService.getRestaurantId();
+        Restaurant restaurantAles = null;
+        for(Restaurant restaurant : this.restaurants) {
+            if (restaurant.getId() == id) {
+                restaurantAles = restaurant;
+            }
+        }
+
+        System.out.println("Alegeti alt produs cu care vreti sa-l schimbati: ");
+
+        Produs produsAles = alegeProdus(scanner, restaurantAles);
+        produsService.updateProdusCos(produsAles, produsIndex);
+    }
+
+    public void stergereProdusCos() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nSchimba produs in cos: ");
+
+        List<Produs> produseDB;
+        produseDB = produsService.readProduseCos();
+
+        System.out.println("\nSelectati produsul:");
+        int temp = 1;
+        for (Produs produs : produseDB) {
+            System.out.printf("%d. %s%n", temp++, produs.toString());
+        }
+        System.out.print("Alegeti produsul: ");
+        int produsIndex = scanner.nextInt();
+        while (produsIndex < 1 || produsIndex > produseDB.size()) {
+            System.out.print("Optiune invalida. Introduceti un numar valid: ");
+            produsIndex = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        produsService.deleteProdusCos(produsIndex);
+        System.out.println("Produsul a fost sters cu succes.");
+    }
+
 }
