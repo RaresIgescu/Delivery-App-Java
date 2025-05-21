@@ -98,6 +98,12 @@ public class Main {
                 case 17:
                     service.stergereReview();
                     break;
+                case 18:
+                    service.modificareProdus();
+                    break;
+                case 19:
+                    service.stergereProdusCos();
+                    break;
                 case 0:
                     continueRunning = false;
                     System.out.println("\nMultumim ca ai folosit placeIT! La revedere si pofta buna!");
