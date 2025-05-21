@@ -1,12 +1,9 @@
 package src.com.unibuc.pao.proiect.service;
 import src.com.unibuc.pao.proiect.model.Review;
-import src.com.unibuc.pao.proiect.model.cardCredit;
 
 import java.sql.*;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class ReviewService {
     private final Connection connection;
