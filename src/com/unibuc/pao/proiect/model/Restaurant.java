@@ -72,6 +72,10 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii Restaurant -- " + toReviews(reviews);
+        if(!reviews.isEmpty()) {
+            return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\n -- Detalii Restaurant -- " + toReviews(reviews);
+        } else {
+            return "Nume: " + nume + "\nStrada: " + strada + "\nOras: " + oras + "\nCategorie: " + categorie + "\n\nAcest restaurant nu are inca review-uri";
+        }
     }
 }
