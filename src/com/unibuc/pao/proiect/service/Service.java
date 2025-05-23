@@ -191,7 +191,7 @@ public class Service {
     public void modificareDatePersonale() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n******************************");
-        System.out.println("    Introducerea datelor tale");
+        System.out.println("  Modificarea datelor tale");
         System.out.println("******************************\n");
 
         System.out.print("Nume (4-20 litere, fara cifre): ");
@@ -319,7 +319,11 @@ public class Service {
 
     public void adaugareProdusInCos() {
         List<Produs> produse = produsService.readProduseCos();
-        int id = produsService.getRestaurantId();
+        int id = 0;
+        if(!produse.isEmpty()) {
+            Produs primulProdus = produse.getFirst();
+            id = produsService.getRestaurantId(primulProdus);
+        }
         Scanner scanner = new Scanner(System.in);
         Restaurant restaurantAles = null;
         for(Restaurant restaurant : this.restaurants) {
@@ -351,12 +355,15 @@ public class Service {
 
                 if (optiune == 2) {
                     this.cos = new Cos(1, null, new ArrayList<>(), 0);
+                    produsService.deleteProduse();
                     restaurantAles = alegeRestaurant(scanner);
                 } else if (optiune != 1) {
                     System.out.println("Optiune invalida! Te rog alege intre 1 si 2.");
                 }
             } while (optiune != 1 && optiune != 2);
         }
+
+        produse = produsService.readProduseCos();
 
         Produs produsAles = alegeProdus(scanner, restaurantAles);
         Produs produsAlesDB = new Produs(produse.size() + 1, produsAles.getNume(), produsAles.getPret(), produsAles.getDisponibilitate());
@@ -434,7 +441,9 @@ public class Service {
     public void plasareComanda() {
         Scanner scanner = new Scanner(System.in);
 
-        if (this.cos.nrProduse() == 0) {
+        List<Produs> produseCos = produsService.readProduseCos();
+
+        if (produseCos.isEmpty()) {
             System.out.println("\nCosul este gol. Adauga produse in cos inainte de a plasa o comanda.");
             return;
         }
@@ -489,13 +498,20 @@ public class Service {
 
         Curier curierAleatoriu = curieri.get(random.nextInt(curieri.size()));
 
+        double totalDePlata = 0;
+
+        for (Produs p : produsService.readProduseCos()) {
+            totalDePlata += p.getPret();
+        }
+
         Comanda comandaPlasata = new Comanda(
-                comenzi.size() + 1, this.cos.getProduse(), this.cos.getRestaurant(),
-                this.cos.getTotalDePlata(), LocalDate.now(), curierAleatoriu
+                comenzi.size() + 1, produsService.readProduseCos(), this.cos.getRestaurant(),
+                totalDePlata, LocalDate.now(), curierAleatoriu
         );
         comenzi.add(comandaPlasata);
 
         this.cos = new Cos(1, null, new ArrayList<>(), 0);
+        produsService.deleteProduse();
 
         System.out.println("\nComanda a fost plasata cu succes!");
 
@@ -1058,36 +1074,47 @@ public class Service {
     public void modificareProdus() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nSchimba produs in cos: ");
-
         List<Produs> produseDB;
         produseDB = produsService.readProduseCos();
 
-        System.out.println("\nSelectati produsul:");
-        int temp = 1;
-        for (Produs produs : produseDB) {
-            System.out.printf("%d. %s%n", temp++, produs.toString());
+        if(produseDB.isEmpty()) {
+            System.out.println("Nu aveti produse in cos.");
         }
-        System.out.print("Alegeti produsul: ");
-        int produsIndex = scanner.nextInt();
-        while (produsIndex < 1 || produsIndex > produseDB.size()) {
-            System.out.print("Optiune invalida. Introduceti un numar valid: ");
-            produsIndex = scanner.nextInt();
-        }
-        scanner.nextLine();
+        else {
 
-        int id = produsService.getRestaurantId();
-        Restaurant restaurantAles = null;
-        for(Restaurant restaurant : this.restaurants) {
-            if (restaurant.getId() == id) {
-                restaurantAles = restaurant;
+            System.out.println("\nSelectati produsul:");
+            int temp = 1;
+            produseDB.sort(Comparator.comparingInt(Produs::getId));
+            for (Produs produs : produseDB) {
+                System.out.printf("%d. %s%n", temp++, produs.toString());
             }
+            System.out.print("Alegeti produsul: ");
+            int produsIndex = scanner.nextInt();
+            while (produsIndex < 1 || produsIndex > produseDB.size()) {
+                System.out.print("Optiune invalida. Introduceti un numar valid: ");
+                produsIndex = scanner.nextInt();
+            }
+            scanner.nextLine();
+
+            List<Produs> produse = produsService.readProduseCos();
+            Produs produsAles = produse.getFirst();
+
+            int id = produsService.getRestaurantId(produsAles);
+            Restaurant restaurantAles = null;
+            for (Restaurant restaurant : this.restaurants) {
+                if (restaurant.getId() == id) {
+                    restaurantAles = restaurant;
+                }
+            }
+
+            System.out.println("Alegeti alt produs cu care vreti sa-l schimbati: ");
+
+            produsAles = alegeProdus(scanner, restaurantAles);
+            produsService.updateProdusCos(produsAles, produsIndex);
+
+            System.out.println("Produsul a fost schimbat cu succes.");
+
         }
-
-        System.out.println("Alegeti alt produs cu care vreti sa-l schimbati: ");
-
-        Produs produsAles = alegeProdus(scanner, restaurantAles);
-        produsService.updateProdusCos(produsAles, produsIndex);
     }
 
     public void stergereProdusCos() {
@@ -1098,21 +1125,44 @@ public class Service {
         List<Produs> produseDB;
         produseDB = produsService.readProduseCos();
 
-        System.out.println("\nSelectati produsul:");
-        int temp = 1;
-        for (Produs produs : produseDB) {
-            System.out.printf("%d. %s%n", temp++, produs.toString());
-        }
-        System.out.print("Alegeti produsul: ");
-        int produsIndex = scanner.nextInt();
-        while (produsIndex < 1 || produsIndex > produseDB.size()) {
-            System.out.print("Optiune invalida. Introduceti un numar valid: ");
-            produsIndex = scanner.nextInt();
-        }
-        scanner.nextLine();
+        if (produseDB.isEmpty()) {
+            System.out.println("Nu aveti produs in cos.");
+        } else {
+            System.out.println("\nSelectati produsul:");
+            int temp = 1;
+            produseDB.sort(Comparator.comparingInt(Produs::getId));
+            for (Produs produs : produseDB) {
+                System.out.printf("%d. %s%n", temp++, produs.toString());
+            }
+            System.out.print("Alegeti produsul: ");
+            int produsIndex = scanner.nextInt();
+            while (produsIndex < 1 || produsIndex > produseDB.size()) {
+                System.out.print("Optiune invalida. Introduceti un numar valid: ");
+                produsIndex = scanner.nextInt();
+            }
+            scanner.nextLine();
 
-        produsService.deleteProdusCos(produsIndex);
-        System.out.println("Produsul a fost sters cu succes.");
+            produsService.deleteProdusCos(produsIndex);
+            System.out.println("Produsul a fost sters cu succes.");
+            if(!produsService.readProduseCos().isEmpty()) {
+                Restaurant restaurantAles = null;
+                produseDB = produsService.readProduseCos();
+                int restaurantId = produsService.getRestaurantId(produseDB.getFirst());
+                for(Restaurant restaurant : this.restaurants) {
+                    if (restaurant.getId() == restaurantId) {
+                        restaurantAles = restaurant;
+                    }
+                }
+                List<Produs> produseIdScazut = new ArrayList<>();
+                for (Produs produs : produseDB) {
+                    if (produs.getId() > produsIndex) {
+                        produsService.deleteProdusCos(produs.getId());
+                        int idScazut = produs.getId() - 1;
+                        Produs produsReconstruit = new Produs(idScazut, produs.getNume(), produs.getPret(), produs.getDisponibilitate());
+                        produsService.adaugaInCos(produsReconstruit, restaurantAles);
+                    }
+                }
+            }
+        }
     }
-
 }
