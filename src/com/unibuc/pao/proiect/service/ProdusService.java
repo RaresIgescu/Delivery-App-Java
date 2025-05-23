@@ -1,7 +1,6 @@
 package src.com.unibuc.pao.proiect.service;
 import src.com.unibuc.pao.proiect.model.Produs;
 import src.com.unibuc.pao.proiect.model.Restaurant;
-import src.com.unibuc.pao.proiect.model.cardCredit;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -95,17 +94,19 @@ public class ProdusService {
         }
     }
 
-    public int getRestaurantId() {
+    public int getRestaurantId(Produs produs) {
         int id = 0;
-        String sql = "SELECT restaurant_id FROM cos WHERE id = 1";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                id = rs.getInt("restaurant_id");
+        String sql = "SELECT restaurant_id FROM cos WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, produs.getId());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    id = rs.getInt("restaurant_id");
+                }
             }
 
         } catch (SQLException e) {
-            System.out.println("Eroare la citirea produselor: " + e.getMessage());
+            System.out.println("Eroare la citirea restaurantului: " + e.getMessage());
         }
         return id;
     }
