@@ -119,8 +119,9 @@ public class Service {
         User user = userService.readDatePersonale();
 
         if (user == null) {
+            System.out.println("Inaninte de toate, te rugam sa introduci datele tale personale: ");
             System.out.println("\n******************************");
-            System.out.println("    Introducerea datelor tale");
+            System.out.println("  Introducerea datelor tale");
             System.out.println("******************************\n");
 
             System.out.print("Nume (4-20 litere, fara cifre): ");
@@ -443,9 +444,18 @@ public class Service {
 
         List<Produs> produseCos = produsService.readProduseCos();
 
+
         if (produseCos.isEmpty()) {
             System.out.println("\nCosul este gol. Adauga produse in cos inainte de a plasa o comanda.");
             return;
+        }
+
+        Restaurant restaurantAles = null;
+        int restaurantId = produsService.getRestaurantId(produseCos.getFirst());
+        for(Restaurant restaurant : this.restaurants) {
+            if(restaurant.getId() == restaurantId) {
+                restaurantAles = restaurant;
+            }
         }
 
         vizualizareCos();
@@ -505,7 +515,7 @@ public class Service {
         }
 
         Comanda comandaPlasata = new Comanda(
-                comenzi.size() + 1, produsService.readProduseCos(), this.cos.getRestaurant(),
+                comenzi.size() + 1, produsService.readProduseCos(), restaurantAles,
                 totalDePlata, LocalDate.now(), curierAleatoriu
         );
         comenzi.add(comandaPlasata);
@@ -1062,7 +1072,6 @@ public class Service {
         reviewService.updateReview(reviewIndex, scor, comentariu);
 
         System.out.println("Review actualizat cu succes.");
-
     }
 
     public void stergereReview() {
@@ -1086,7 +1095,16 @@ public class Service {
         reviewService.deleteReview(reviewIndex);
 
         System.out.println("Review sters cu succes.");
-
+        if(!reviewService.readReviews().isEmpty()) {
+            for (Review review : reviewService.readReviews()) {
+                if (review.getId() > reviewIndex) {
+                    reviewService.deleteReview(review.getId());
+                    int idScazut = review.getId() - 1;
+                    Review reviewReconstruit = new Review(idScazut, review.getScore(), review.getComentariu());
+                    reviewService.adaugaReview(reviewReconstruit);
+                }
+            }
+        }
     }
 
     public void modificareProdus() {
