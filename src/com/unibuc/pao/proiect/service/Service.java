@@ -1,5 +1,6 @@
 package src.com.unibuc.pao.proiect.service;
 
+import src.com.unibuc.pao.proiect.audit.AuditService;
 import src.com.unibuc.pao.proiect.model.*;
 
 import java.time.LocalDate;
@@ -117,6 +118,7 @@ public class Service {
         int id = 1;
 
         User user = userService.readDatePersonale();
+        AuditService.getInstance().logAction("citire_date_personale");
 
         if (user == null) {
             System.out.println("Inaninte de toate, te rugam sa introduci datele tale personale: ");
@@ -178,6 +180,7 @@ public class Service {
 
             user = new User(id, nume, prenume, varsta, oras, strada);
             userService.createDatePersonale(user);
+            AuditService.getInstance().logAction("creare_date_personale");
 
             System.out.println("\n******************************");
             System.out.println("   DATE SALVATE CU SUCCES!");
@@ -248,6 +251,8 @@ public class Service {
         }
 
         userService.modificareDatePersonale(nume, prenume, varsta, oras, strada);
+        AuditService.getInstance().logAction("modificare_date_personale");
+
 
         System.out.println("\n******************************");
         System.out.println("   DATE SALVATE CU SUCCES!");
@@ -257,12 +262,14 @@ public class Service {
 
     public void stergereDatePersonale() {
         userService.stergereDatePersonale();
+        AuditService.getInstance().logAction("stergere_date_personale");
         System.out.println("Datele dvs. personale au fost sterse cu succes.");
         System.out.println("Acum aplicatia se va inchide iar la repornire va trebui sa va setati din nou datele.");
     }
 
     public void vizualzareDatePersonale() {
         User user = userService.readDatePersonale();
+        AuditService.getInstance().logAction("citire_date_personale");
         System.out.println(user.toString());
     }
 
@@ -296,6 +303,7 @@ public class Service {
 
     public void vizualizareCos() {
         List<Produs> produseInCos = produsService.readProduseCos();
+        AuditService.getInstance().logAction("citire_produse_cos");
         if (produseInCos.isEmpty()) {
             System.out.println("\nCosul tau de cumparaturi este gol.");
             System.out.println("Adauga produse pentru a vizualiza continutul cosului.");
@@ -320,10 +328,12 @@ public class Service {
 
     public void adaugareProdusInCos() {
         List<Produs> produse = produsService.readProduseCos();
+        AuditService.getInstance().logAction("citire_produse_cos");
         int id = 0;
         if(!produse.isEmpty()) {
             Produs primulProdus = produse.getFirst();
             id = produsService.getRestaurantId(primulProdus);
+            AuditService.getInstance().logAction("citire_restaurant_cos");
         }
         Scanner scanner = new Scanner(System.in);
         Restaurant restaurantAles = null;
@@ -357,6 +367,7 @@ public class Service {
                 if (optiune == 2) {
                     this.cos = new Cos(1, null, new ArrayList<>(), 0);
                     produsService.deleteProduse();
+                    AuditService.getInstance().logAction("stergere_produse_cos");
                     restaurantAles = alegeRestaurant(scanner);
                 } else if (optiune != 1) {
                     System.out.println("Optiune invalida! Te rog alege intre 1 si 2.");
@@ -369,6 +380,7 @@ public class Service {
         Produs produsAles = alegeProdus(scanner, restaurantAles);
         Produs produsAlesDB = new Produs(produse.size() + 1, produsAles.getNume(), produsAles.getPret(), produsAles.getDisponibilitate());
         produsService.adaugaInCos(produsAlesDB, restaurantAles);
+        AuditService.getInstance().logAction("adaugare_produs_cos");
 
         double total = 0;
         for (Produs produs : produse) {
@@ -443,7 +455,7 @@ public class Service {
         Scanner scanner = new Scanner(System.in);
 
         List<Produs> produseCos = produsService.readProduseCos();
-
+        AuditService.getInstance().logAction("citire_produse_cos");
 
         if (produseCos.isEmpty()) {
             System.out.println("\nCosul este gol. Adauga produse in cos inainte de a plasa o comanda.");
@@ -452,6 +464,7 @@ public class Service {
 
         Restaurant restaurantAles = null;
         int restaurantId = produsService.getRestaurantId(produseCos.getFirst());
+        AuditService.getInstance().logAction("citire_restaurant_cos");
         for(Restaurant restaurant : this.restaurants) {
             if(restaurant.getId() == restaurantId) {
                 restaurantAles = restaurant;
@@ -478,6 +491,7 @@ public class Service {
 
         Set<cardCredit> carduriBD;
         carduriBD = cardService.getAllCards();
+        AuditService.getInstance().logAction("citire_carduri");
 
         if (optiunePlata == 2 && carduriBD.isEmpty()) {
             System.out.println("\nNu aveti carduri de credit salvate. Adaugati un card si incercati din nou.");
@@ -510,6 +524,7 @@ public class Service {
 
         double totalDePlata = 0;
 
+        AuditService.getInstance().logAction("citire_produse_cos");
         for (Produs p : produsService.readProduseCos()) {
             totalDePlata += p.getPret();
         }
@@ -522,6 +537,7 @@ public class Service {
 
         this.cos = new Cos(1, null, new ArrayList<>(), 0);
         produsService.deleteProduse();
+        AuditService.getInstance().logAction("stergere_produse_cos");
 
         System.out.println("\nComanda a fost plasata cu succes!");
 
@@ -652,10 +668,12 @@ public class Service {
         String confirmare = scanner.nextLine();
 
         carduri = cardService.getAllCards();
+        AuditService.getInstance().logAction("citire_carduri");
 
         if (confirmare.equalsIgnoreCase("Da")) {
             carduri.add(new cardCredit(carduri.size() + 1, numarCard, tipCard, CVV));
             cardService.adaugaCard(new cardCredit(carduri.size(), numarCard, tipCard, CVV));
+            AuditService.getInstance().logAction("adauga_card");
             System.out.println("\nCard adaugat cu succes!");
         } else {
             System.out.println("\nOperatiune anulata. Cardul nu a fost salvat.");
@@ -727,6 +745,7 @@ public class Service {
         String comentariu = scanner.nextLine();
 
         List<Review> reviewsLasate = reviewService.readReviews();
+        AuditService.getInstance().logAction("citire_reviewuri");
 
         List<Review> reviews = restaurant.getReviews();
         if (reviews == null) {
@@ -737,7 +756,7 @@ public class Service {
         reviewsLasate.add(reviewNou);
         restaurant.setReviews(reviews);
         reviewService.adaugaReview(reviewNou);
-
+        AuditService.getInstance().logAction("adauga_review");
         System.out.println("\nReview adaugat cu succes!");
         System.out.println("\nMultumim pentru feedback-ul dumneavoastra despre:");
         System.out.println(restaurant.getNume());
@@ -809,6 +828,8 @@ public class Service {
 
 
         List<Review> reviewsLasate = reviewService.readReviews();
+        AuditService.getInstance().logAction("citire_review");
+
 
         List<Review> reviews = curierAles.getReviews();
         if (reviews == null) {
@@ -819,7 +840,7 @@ public class Service {
         reviewsLasate.add(reviewNou);
         curierAles.setReviews(reviews);
         reviewService.adaugaReview(reviewNou);
-
+        AuditService.getInstance().logAction("adauga_review");
         System.out.println("\nReview adaugat cu succes!");
         System.out.println("\nMultumim pentru feedback-ul dumneavoastra despre:");
         System.out.println(curierAles.getNume());
@@ -914,6 +935,7 @@ public class Service {
 
         List<cardCredit> carduriBD;
         carduriBD = new ArrayList<>(cardService.getAllCards());
+        AuditService.getInstance().logAction("citire_carduri");
 
         if (carduriBD.isEmpty()) {
             System.out.println("Nu aveti carduri salvate.");
@@ -986,6 +1008,7 @@ public class Service {
 
             if (confirmare.equalsIgnoreCase("Da")) {
                 cardService.updateCard(cardIndex, numarCard, tipCard, CVV);
+                AuditService.getInstance().logAction("modificare_card");
                 carduri = cardService.getAllCards();
                 System.out.println("\nCard adaugat cu succes!");
             } else {
@@ -1001,7 +1024,7 @@ public class Service {
 
         Set<cardCredit> carduriBD;
         carduriBD = cardService.getAllCards();
-
+        AuditService.getInstance().logAction("citire_carduri");
         System.out.println("\nSelectati cardul de credit:");
         int temp = 1;
         for (cardCredit card : carduriBD) {
@@ -1016,6 +1039,7 @@ public class Service {
         scanner.nextLine();
 
         cardService.deleteCard(cardIndex);
+        AuditService.getInstance().logAction("stergere_card");
         System.out.println("Cardul a fost sters cu succes");
         if(!cardService.getAllCards().isEmpty()) {
             for (cardCredit card : cardService.getAllCards()) {
@@ -1034,6 +1058,7 @@ public class Service {
         System.out.println("\nSelectati review-ul pe care vreti sa-l modificati: ");
 
         List<Review> reviewsLasate = reviewService.readReviews();
+        AuditService.getInstance().logAction("citire_reviews");
 
         int temp = 1;
         for (Review review : reviewsLasate) {
@@ -1070,6 +1095,7 @@ public class Service {
         String comentariu = scanner.nextLine();
 
         reviewService.updateReview(reviewIndex, scor, comentariu);
+        AuditService.getInstance().logAction("modificare_review");
 
         System.out.println("Review actualizat cu succes.");
     }
@@ -1079,7 +1105,7 @@ public class Service {
         System.out.println("\nSelectati review-ul pe care vreti sa-l stergeti: ");
 
         List<Review> reviewsLasate = reviewService.readReviews();
-
+        AuditService.getInstance().logAction("citire_reviewuri");
         int temp = 1;
         for (Review review : reviewsLasate) {
             System.out.printf("%d. %s%n", temp++, review.toString());
@@ -1093,7 +1119,7 @@ public class Service {
         scanner.nextLine();
 
         reviewService.deleteReview(reviewIndex);
-
+        AuditService.getInstance().logAction("stergere_review");
         System.out.println("Review sters cu succes.");
         if(!reviewService.readReviews().isEmpty()) {
             for (Review review : reviewService.readReviews()) {
@@ -1112,6 +1138,7 @@ public class Service {
 
         List<Produs> produseDB;
         produseDB = produsService.readProduseCos();
+        AuditService.getInstance().logAction("citire_produse_cos");
 
         if(produseDB.isEmpty()) {
             System.out.println("Nu aveti produse in cos.");
@@ -1136,6 +1163,7 @@ public class Service {
             Produs produsAles = produse.getFirst();
 
             int id = produsService.getRestaurantId(produsAles);
+            AuditService.getInstance().logAction("citire_restaurant_cos");
             Restaurant restaurantAles = null;
             for (Restaurant restaurant : this.restaurants) {
                 if (restaurant.getId() == id) {
@@ -1147,6 +1175,7 @@ public class Service {
 
             produsAles = alegeProdus(scanner, restaurantAles);
             produsService.updateProdusCos(produsAles, produsIndex);
+            AuditService.getInstance().logAction("modificare_produs_cos");
 
             System.out.println("Produsul a fost schimbat cu succes.");
 
@@ -1160,6 +1189,7 @@ public class Service {
 
         List<Produs> produseDB;
         produseDB = produsService.readProduseCos();
+        AuditService.getInstance().logAction("citire_produse_cos");
 
         if (produseDB.isEmpty()) {
             System.out.println("Nu aveti produs in cos.");
@@ -1179,6 +1209,7 @@ public class Service {
             scanner.nextLine();
 
             produsService.deleteProdusCos(produsIndex);
+            AuditService.getInstance().logAction("stergere_produs_cos");
             System.out.println("Produsul a fost sters cu succes.");
             if(!produsService.readProduseCos().isEmpty()) {
                 Restaurant restaurantAles = null;
