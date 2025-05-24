@@ -16,7 +16,6 @@ public class Main {
         System.out.println("\nBine ai venit pe placeIT!");
         System.out.println("Cea mai noua platforma de food delivery.\n");
 
-        System.out.println("Inainte de toate, te rugam sa completezi datele tale personale:");
         service.setareDatePersonale();
 
         boolean continueRunning = true;
