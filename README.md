@@ -6,7 +6,7 @@ Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în lim
 
 ## 🧰 Tehnologii utilizate
 
-- Java 17
+- Java 
 - JDBC (Java Database Connectivity)
 - PostgreSQL
 - pgAdmin 4
@@ -24,10 +24,10 @@ Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în lim
 - ✅ Salvarea comenzilor și afișarea istoricului
 - ✅ Adăugarea de recenzii pentru restaurante
 - ✅ Persistență cu PostgreSQL pentru următoarele entități:
+  - `Card`
   - `Produs`
+  - `Review`
   - `User`
-  - `Restaurant`
-  - `Comanda`
 - ✅ Operații CRUD pentru clasele de mai sus
 - ✅ Serviciu de audit: scriere în fișier CSV pentru fiecare acțiune semnificativă
 
@@ -36,12 +36,27 @@ Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în lim
 ## 🗂️ Structura proiectului
 
 ```
-src/
-├── com.unibuc.pao.proiect.model        # Clase model: User, Restaurant, Produs, Comanda etc.
-├── com.unibuc.pao.proiect.service      # Servicii pentru operații CRUD și interacțiunea cu DB
-├── com.unibuc.pao.proiect.database     # Conexiunea cu baza de date (DBConnection)
-├── com.unibuc.pao.proiect.audit        # Scrierea logurilor în audit.csv
-├── com.unibuc.pao.proiect.ui           # Meniul principal (Main.java)
+src.com.unibuc.pao.proiect
+├── audit
+  ├── AuditService
+├── model
+  ├── cardCredit
+  ├── Comanda
+  ├── Cos
+  ├── Persoana
+  ├── Produs
+  ├── Restaurant
+  ├── Review
+  ├── User
+├── service
+  ├── CardService
+  ├── DBConnection
+  ├── ProdusService
+  ├── Service
+  ├── UserService
+├── ui
+  ├── Main
+audit.csv       
 ```
 
 ---
@@ -51,14 +66,13 @@ src/
 1. Creează o bază de date:  
    `food_delivery`
 
-2. Creează tabelele corespunzătoare (exemplu pentru `produs`):
+2. Creează tabelele corespunzătoare (exemplu pentru `card`):
 
 ```sql
-CREATE TABLE produs (
+CREATE TABLE card (
     id SERIAL PRIMARY KEY,
-    nume VARCHAR(100),
-    pret DOUBLE PRECISION,
-    categorie VARCHAR(50)
+    scor INT,
+    comentariu VARCHAR(50)
 );
 ```
 
@@ -77,7 +91,7 @@ String password = "parola_ta";
 
 ## 🧪 Serviciu de audit
 
-La fiecare acțiune efectuată în aplicație (de exemplu, adăugare produs, plasare comandă, scriere recenzie), se loghează automat o linie în fișierul `audit.csv` cu formatul:
+La fiecare acțiune efectuată în aplicație (de exemplu, adăugare produs, stergere review, modificare produs in cos), se loghează automat o linie în fișierul `audit.csv` cu formatul:
 
 ```csv
 actiune,timestamp
@@ -128,7 +142,6 @@ produsService.deleteProdus(3);
 
 ## 📌 Observații finale
 
-- Parolele utilizatorilor bazei de date nu sunt hardcodate în aplicațiile reale. Pentru uz academic, s-a acceptat această practică.
 - Structura OOP poate fi extinsă prin introducerea de clase abstracte și interfețe, în funcție de nevoi.
 - Ar fi ideal să se folosească Hibernate sau JPA pentru proiecte reale, dar s-a folosit JDBC conform cerințelor temei.
 
@@ -136,9 +149,9 @@ produsService.deleteProdus(3);
 
 ## 👨‍🎓 Autor
 
-**Rares N.**  
+**Rares-Andrei I.**  
 Student la Facultatea de Matematică și Informatică, Universitatea din București  
-Proiect realizat pentru disciplina PAO – anul 1, semestrul 2
+Proiect realizat pentru disciplina PAOJ – anul 2, semestrul 2
 
 ---
 
