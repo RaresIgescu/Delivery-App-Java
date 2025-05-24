@@ -1,4 +1,4 @@
-# 🍽️ Aplicație Food Delivery – Proiect Java (PAO)
+# 🍽️ Aplicație Food Delivery – Proiect Java (PAOJ)
 
 Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în limbajul Java, ca parte a temei de semestru pentru disciplina Programare Avansată pe Obiecte (PAO). Aplicația permite gestionarea utilizatorilor, restaurantelor, produselor, comenzilor și recenziilor, cu persistența datelor în PostgreSQL și un sistem de audit pe fișier CSV.
 
