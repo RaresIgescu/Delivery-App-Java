@@ -1,4 +1,5 @@
 package src.com.unibuc.pao.proiect.service;
+
 import src.com.unibuc.pao.proiect.model.Produs;
 import src.com.unibuc.pao.proiect.model.Restaurant;
 
@@ -7,10 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdusService {
+    private static ProdusService instance;
     private final Connection connection;
 
-    public ProdusService() {
+    private ProdusService() {
         this.connection = DBConnection.getInstance().getConnection();
+    }
+
+    public static ProdusService getInstance() {
+        if (instance == null) {
+            instance = new ProdusService();
+        }
+        return instance;
     }
 
     public void adaugaProdus(Produs produs) {
@@ -20,10 +29,9 @@ public class ProdusService {
             stm.setString(2, produs.getNume());
             stm.setDouble(3, produs.getPret());
             stm.setString(4, produs.getDisponibilitate());
-
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Eroare la adaugare produs: " + e.getMessage());
+            System.out.println("Eroare la adăugare produs: " + e.getMessage());
         }
     }
 
@@ -37,7 +45,7 @@ public class ProdusService {
             stm.setInt(5, restaurant.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Eroare la adaugare produs in cos: " + e.getMessage());
+            System.out.println("Eroare la adăugare produs în coș: " + e.getMessage());
         }
     }
 
@@ -53,44 +61,41 @@ public class ProdusService {
                 String disponibilitate = rs.getString("disponibilitate");
                 produse.add(new Produs(id, nume, pret, disponibilitate));
             }
-
         } catch (SQLException e) {
-            System.out.println("Eroare la citirea produselor: " + e.getMessage());
+            System.out.println("Eroare la citirea produselor din coș: " + e.getMessage());
         }
         return produse;
     }
 
     public void updateProdusCos(Produs produs, int id) {
         String sql = "UPDATE cos SET nume = ?, pret = ?, disponibilitate = ? WHERE id = ?";
-
-        try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, produs.getNume());
             stmt.setDouble(2, produs.getPret());
             stmt.setString(3, produs.getDisponibilitate());
             stmt.setInt(4, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Eroare la actualizarea produsului: " + e.getMessage());
+            System.out.println("Eroare la actualizarea produsului din coș: " + e.getMessage());
         }
     }
 
     public void deleteProdusCos(int id) {
         String sql = "DELETE FROM cos WHERE id = ?";
-
-        try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Eroare la stergerea produsului: " + e.getMessage());
+            System.out.println("Eroare la ștergerea produsului din coș: " + e.getMessage());
         }
     }
 
     public void deleteProduse() {
         String sql = "DELETE FROM cos";
-        try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Eroare la stergerea produselor: " + e.getMessage());
+            System.out.println("Eroare la ștergerea tuturor produselor din coș: " + e.getMessage());
         }
     }
 
@@ -104,11 +109,9 @@ public class ProdusService {
                     id = rs.getInt("restaurant_id");
                 }
             }
-
         } catch (SQLException e) {
-            System.out.println("Eroare la citirea restaurantului: " + e.getMessage());
+            System.out.println("Eroare la citirea restaurantului asociat produsului: " + e.getMessage());
         }
         return id;
     }
-
 }

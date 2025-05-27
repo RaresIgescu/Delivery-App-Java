@@ -16,10 +16,10 @@ public class Service {
     private Set<cardCredit> carduri;
     private final Random random;
 
-    ProdusService produsService = new ProdusService();
-    CardService cardService = new CardService();
-    UserService userService = new UserService();
-    ReviewService reviewService = new ReviewService();
+    ProdusService produsService = ProdusService.getInstance();
+    CardService cardService = CardService.getInstance();
+    UserService userService = UserService.getInstance();
+    ReviewService reviewService = ReviewService.getInstance();
     public Service() {
         this.random = new Random();
         this.restaurants = new LinkedHashSet<>();
