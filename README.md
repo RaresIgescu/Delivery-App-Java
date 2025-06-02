@@ -9,7 +9,7 @@ Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în lim
 - Java 
 - JDBC (Java Database Connectivity)
 - PostgreSQL
-- pgAdmin 4
+- pgAdmin 4 v7.5
 - IntelliJ IDEA
 - PL/SQL (pentru manipularea datelor în pgAdmin)
 - OOP + Design Pattern: Singleton
