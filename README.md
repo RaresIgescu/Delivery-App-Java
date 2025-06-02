@@ -27,7 +27,7 @@ Acest proiect reprezintă o aplicație de tip Food Delivery, dezvoltată în lim
   - `Card`
   - `Produs`
   - `Review`
-  - `User`
+  - `Cod`
 - ✅ Operații CRUD pentru clasele de mai sus
 - ✅ Serviciu de audit: scriere în fișier CSV pentru fiecare acțiune semnificativă
 
@@ -41,6 +41,7 @@ src.com.unibuc.pao.proiect
   ├── AuditService
 ├── model
   ├── cardCredit
+  ├── Cod
   ├── Comanda
   ├── Cos
   ├── Persoana
@@ -50,13 +51,15 @@ src.com.unibuc.pao.proiect
   ├── User
 ├── service
   ├── CardService
+  ├── CodService
   ├── DBConnection
   ├── ProdusService
   ├── Service
   ├── UserService
 ├── ui
   ├── Main
-audit.csv       
+audit.csv
+README.md       
 ```
 
 ---
@@ -66,13 +69,50 @@ audit.csv
 1. Creează o bază de date:  
    `food_delivery`
 
-2. Creează tabelele corespunzătoare (exemplu pentru `card`):
+2. Creează tabelele corespunzătoare:
 
 ```sql
 CREATE TABLE card (
-    id SERIAL PRIMARY KEY,
-    scor INT,
-    comentariu VARCHAR(50)
+  id SERIAL PRIMARY KEY,
+  numar_card VARCHAR(50),
+  tip_card VARCHAR(50),
+  cvv varchar(3)
+);
+
+CREATE TABLE codes (
+  id SERIAL PRIMARY KEY,
+  cod VARCHAR(10),
+  valabilitate VARCHAR(50)
+);
+
+CREATE TABLE cos (
+  id SERIAL PRIMARY KEY,
+  nume VARCHAR(50),
+  pret DOUBLE PRECISION,
+  disponibilitate VARCHAR(50),
+  restaurant_id INTEGER
+);
+
+CREATE TABLE produs (
+  id SERIAL PRIMARY KEY,
+  nume VARCHAR(50),
+  pret DOUBLE PRECISION,
+  disponibilitate VARCHAR(50)
+);
+
+CREATE TABLE review (
+  id SERIAL PRIMARY KEY,
+  scor DOUBLE PRECISION,
+  comentariu VARCHAR(100)
+);
+
+CREATE TABLE utilizator (
+  id SERIAL PRIMARY KEY,
+  nume VARCHAR(50),
+  prenume VARCHAR(50),
+  varsta INTEGER,
+  oras VARCHAR(50),
+  strada VARCHAR(50)
 );
 ```
 
@@ -87,6 +127,55 @@ String user = "postgres";
 String password = "parola_ta";
 ```
 
+# Operațiile CRUD pe clase
+
+## Pentru clasa Cod:
+1. Create:  `Se alege 20 din meniul interactiv -> Se introduce un cod (GLOVO10) -> Se verifica modificarile in baza de date.`
+   
+2. Read: `Se alege 21 din meniul interactiv -> In backend se face un call la baza de date pentru a prelua codurile -> utilizatorul observa cum apar toate codurile salvate.`
+   
+3. Update: `Se alege 22 din meniul interactiv -> Se alege indexul codului pe care vrem sa il modificam -> Introducem noile date care voi inlocui datele vechi -> Se verifica modificarile in baza de date.`
+
+4. Delete: `Se alege 23 din meniul interactiv -> Se alege indexul codului pe care vrem sa il stergem -> Se verifica modificarile in baza de date.`
+
+
+## Pentru clasa Card:
+1. Create: `Se alege 13 din meniul interactiv -> Se introduc datele corespunzator -> Se verifica modificarile in baza de date.`
+
+2. Read: `Se adauga in cos cel putin un produs prin metoda 9 din meniul interactiv -> Se plaseaza o comanda prin metoda 6 din meniul interactiv -> La selectarea metodei de plata se alege "Card de credit, online" -> Se observa cum apar cardurile stocate in baza de date.`
+
+3. Update: `Se alege 14 din meniul interactiv -> Se alege indexul cardului pe care vrem sa il modificam -> Introducem noile date care vor inlocui datele vechi -> Se verifica modificarile in baza de date.`
+
+4. Delete: `Se alege 16 din meniul interactiv -> Se alege indexul cardului pe care vrem sa il stergem -> Se verifica modificarile in baza de date.`
+
+## Pentru clasa Produs (care e folosita pentru a adauga produse in cosul de cumparaturi):
+1. Create: `Se alege 9 din meniul interactiv -> Daca nu aveti produse in cos, alegeti restaurantul, apoi un produs din meniul acelui restaurant. !! O comanda se poate plasa doar cu produse din acelasi restaurant !!. Daca aveti deja produse in cos va trebui sa alegeti daca sa incepeti o comanda noua (astfel revenind la pasul initial in care nu aveti produse in cos) sau sa adaugati alt produs din cadrul meniului aceluiasi restaurant. -> Indiferent de metoda aleasa anterior, noul produs va fi adaugat in baza de date.`
+
+2. Read: `Se alege 10 din meniul interactiv -> Se observa toate produsele din clasa cos din baza de date.`
+
+3. Update: `Se alege 11 din meniul interactiv -> Se alege indexul produsului pe care vrem sa il modificam !! Vom putea modifica produsul doar cu un altul din cadrul aceluiasi restaurant !! -> Se alege indexul noului produs -> Se observa modificarile in baza de date.`
+
+4. Delete: `Se alege 12 din meniul interactiv -> Se alege indexul produsului pe care vrem sa il stergem -> Se observa modificarile in baza de date.`
+
+## Pentru clasa Review:
+1. Create: `Se plaseaza mai intai cel putin o comanda din meniul interactiv -> Se alege 16 - review pentru restaurant - sau 17 - review pentru curier - din meniul interactiv -> Se alege indexul comenzii pentru care vrem sa lasam review -> Introducem nota si comentariul recenziei -> Se observa modificarile in baza de date.`
+
+2. Read:
+   - Pentru restaurant: `Se alege 5 din meniul interactiv -> Se introduce tipul unui restaurant (Ex. "Italian") -> Se observa cum apar detaliile unui restaurant alaturi de recenzii.`
+   - Pentru curieri: `Recenziile unui curier apar in momentul in care utilizatorul plaseaza o comanda. Astfel, daca a fost lasat un review pentru Curierul-1, vom putea vedea noua recenzie lasata in momentul in care plasam o alta comanda asupra careia este asignat tot Curierul-1. (!! Un curier este asignat unei comanzi in mod randomizat, folosind functii matematice).`
+
+3. Update: `Se alege 18 din meniul interactiv -> Se alege indexul recenziei pe care vrem sa o modificam -> Introducem noile date care vor inlocui datele vechi in baza de date -> Se observa schimbarile in baza de date.`
+
+4. Delete: `Se alege 19 din meniul interactiv -> Se alege indexul recenziei pe care vrem sa o stergem -> Se observa modificarile in baza de date.`
+
+## Bonus - Pentru clasa User:
+1. Create: `In momentul in care aplicatia este pornita pentru prima data, utilizatorul va fi fortat sa isi introduca datele personale. Astfel, data viitoare cand porneste aplicatia, in loc de introducerea datelor personale, se va afisa un mesaj de bun venit. Practic, datele sale personale sunt create si adaugate in baza de date in mod automat.`
+
+2. Read: `Se alege 1 din meniul interactiv -> Se observa datele personale extrase din baza de date.`
+
+3. Update: `Se alege 2 din meniul interactiv -> Se introduc datele personale corespunzator -> Se observa modificarile in baza de date.`
+
+4. Delete: `Se alege 3 din meniul interactiv -> Datele se vor sterge automat din baza de date iar aplicatia se va inchide -> La urmatoarea rulare a aplicatiei, utilizatorul va fi iar fortat sa isi introduca datele personale.`
 ---
 
 ## 🧪 Serviciu de audit
@@ -107,36 +196,6 @@ plasare_comanda,2025-05-24 14:36:01
 2. Asigură-te că baza de date este pornită
 3. Rulează clasa `Main.java`
 4. Urmează meniul interactiv pentru a utiliza aplicația
-
----
-
-## 🧪 Exemple de operații CRUD
-
-### Adăugare produs
-
-```java
-Produs produs = new Produs("Pizza Margherita", 32.5, "Italian");
-produsService.adaugaProdus(produs);
-```
-
-### Afișare produse
-
-```java
-List<Produs> produse = produsService.getAllProduse();
-produse.forEach(System.out::println);
-```
-
-### Actualizare produs
-
-```java
-produsService.updateProdus(3, "Pizza Quattro Formaggi", 37.0, "Italian");
-```
-
-### Ștergere produs
-
-```java
-produsService.deleteProdus(3);
-```
 
 ---
 
