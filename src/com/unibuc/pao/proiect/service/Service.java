@@ -14,12 +14,14 @@ public class Service {
     private Cos cos;
     private final List<Comanda> comenzi;
     private Set<cardCredit> carduri;
+    private List<Cod> coduri;
     private final Random random;
 
     ProdusService produsService = ProdusService.getInstance();
     CardService cardService = CardService.getInstance();
     UserService userService = UserService.getInstance();
     ReviewService reviewService = ReviewService.getInstance();
+    CodService codService = CodService.getInstance();
     public Service() {
         this.random = new Random();
         this.restaurants = new LinkedHashSet<>();
@@ -482,6 +484,54 @@ public class Service {
             return;
         }
 
+        System.out.println("\nVreti sa aplicati un cod promotional?:");
+        System.out.println("1. Da");
+        System.out.println("2. Nu");
+        System.out.println("Alegeti o optiune: ");
+        int optiuneCod = scanner.nextInt();
+        scanner.nextLine();
+
+        Cod codAles = null;
+        int reducere = 0;
+        if(optiuneCod == 1) {
+            coduri = this.codService.getAllCodes();
+            if(coduri.isEmpty())
+                System.out.println("Ne pare rau, nu aveti coduri promotionale adaugate, verificati meniul interactiv.");
+            else {
+                System.out.println("Alegeti codul promotional dorit: ");
+                List<Cod> coduriDB = codService.getAllCodes();
+                int temp = 1;
+
+                coduriDB.sort(Comparator.comparingInt(Cod::getId));
+                for (Cod cod : coduriDB) {
+                    System.out.printf("%d. %s%n", temp++, cod.toString());
+                }
+                System.out.print("Alegeti produsul: ");
+                int codIndex = scanner.nextInt();
+                while (codIndex < 1 || codIndex > coduriDB.size()) {
+                    System.out.print("Optiune invalida. Introduceti un numar valid: ");
+                    codIndex = scanner.nextInt();
+                }
+                scanner.nextLine();
+
+                for(Cod cod : coduriDB) {
+                    if(cod.getId() == codIndex) {
+                        codAles = cod;
+                    }
+                }
+
+                if(codAles.getValabilitate().equalsIgnoreCase("invalid")) {
+                    System.out.println("Codul promotional ales nu este valid.");
+                    return;
+                }
+
+                reducere = Integer.parseInt(codAles.getCod().substring(codAles.getCod().length() - 2));
+                System.out.println("Cod ales cu succes.");
+                System.out.println("Aveti " + reducere + "% reducere.");
+                System.out.println("Daca plasati comanda, codul va deveni invalid.");
+            }
+        }
+
         System.out.println("\nAlege metoda de plata:");
         System.out.println("1. Cash, la curier");
         System.out.println("2. Card de credit, online");
@@ -527,6 +577,13 @@ public class Service {
         AuditService.getInstance().logAction("citire_produse_cos");
         for (Produs p : produsService.readProduseCos()) {
             totalDePlata += p.getPret();
+        }
+
+        if(codAles!=null) {
+            System.out.println("Total de plata: " + totalDePlata);
+            totalDePlata = totalDePlata - (totalDePlata * reducere) / 100;
+            System.out.println("Total de plata dupa reducere: " + totalDePlata);
+            codService.updatevalabilitateCod(codAles.getId());
         }
 
         Comanda comandaPlasata = new Comanda(
@@ -1185,7 +1242,7 @@ public class Service {
     public void stergereProdusCos() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nSchimba produs in cos: ");
+        System.out.println("\nStergere produs din cos: ");
 
         List<Produs> produseDB;
         produseDB = produsService.readProduseCos();
@@ -1226,6 +1283,150 @@ public class Service {
                         int idScazut = produs.getId() - 1;
                         Produs produsReconstruit = new Produs(idScazut, produs.getNume(), produs.getPret(), produs.getDisponibilitate());
                         produsService.adaugaInCos(produsReconstruit, restaurantAles);
+                    }
+                }
+            }
+        }
+    }
+
+    public void adaugareCodPromotional() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nAdaugare cod promotional: ");
+
+        String cod;
+        while (true) {
+            System.out.println("\nIntroduceti codul promotional: ");
+            System.out.println(" • Exemplu: GLOVO10");
+            System.out.print("Introducere cod promotional: ");
+            cod = scanner.nextLine();
+
+            if (cod.matches("[A-Za-z]{5}\\d{2}")) {
+                System.out.println("Structura valida.");
+                break;
+            } else {
+                System.out.println("\nEroare: codul introdus nu este conform structurii.");
+            }
+        }
+
+        String valabilitate;
+        double rand = Math.random();
+
+        if (rand < 0.5) {
+            valabilitate = "invalid";
+        } else {
+            valabilitate = "valid";
+        }
+
+        List<Cod> coduri_promotionale = codService.getAllCodes();
+
+        Cod cod_promotional = new Cod(coduri_promotionale.size() + 1, cod, valabilitate);
+        this.codService.adaugaCod(cod_promotional);
+
+        System.out.println("\nCod promotional adaugat cu succes.");
+        System.out.println("Pentru a vedea valabilitatea sa, incearca sa il aplici la plasarea comenzii.");
+    }
+
+    public void vizualizareCoduriPromotionale() {
+        System.out.println();
+        System.out.println("Acestea sunt codurile dvs. promotionale: ");
+        this.coduri = this.codService.getAllCodes();
+        for(Cod cod : coduri) {
+            System.out.println(cod.toString());
+        }
+    }
+
+    public void modificareCodPromotional() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nModificare cod promotional");
+
+        List<Cod> coduriDB;
+        coduriDB = new ArrayList<>(codService.getAllCodes());
+
+        if (coduriDB.isEmpty()) {
+            System.out.println("Nu aveti coduri salvate.");
+        } else {
+
+            System.out.println("\nSelectati codul promotional:");
+            int temp = 1;
+            coduriDB.sort(Comparator.comparingInt(Cod::getId));
+            for (Cod cod : coduriDB) {
+                System.out.printf("%d. %s%n", temp++, cod.toString());
+            }
+            System.out.print("Alegeti codul: ");
+            int codIndex = scanner.nextInt();
+            while (codIndex < 1 || codIndex > coduriDB.size()) {
+                System.out.print("Optiune invalida. Introduceti un numar valid: ");
+                codIndex = scanner.nextInt();
+            }
+            scanner.nextLine();
+
+            String cod;
+            while (true) {
+                System.out.println("\nIntroduceti codul promotional: ");
+                System.out.println(" • Exemplu: GLOVO10");
+                System.out.print("Introducere cod promotional: ");
+                cod = scanner.nextLine();
+
+                if (cod.matches("[A-Za-z]{5}\\d{2}")) {
+                    System.out.println("Structura valida.");
+                    break;
+                } else {
+                    System.out.println("\nEroare: codul introdus nu este conform structurii.");
+                }
+            }
+
+            String valabilitate;
+            double rand = Math.random();
+
+            if (rand < 0.5) {
+                valabilitate = "invalid";
+            } else {
+                valabilitate = "valid";
+            }
+
+            codService.updateCod(codIndex, cod, valabilitate);
+            coduri = codService.getAllCodes();
+            System.out.println("\nCod modificat cu succes.");
+        }
+    }
+
+    public void stergereCodPromotional() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nStergere cod promotional: ");
+
+        List<Cod> coduriDB;
+        coduriDB = codService.getAllCodes();
+
+        if (coduriDB.isEmpty()) {
+            System.out.println("Nu aveti coduri promotionale.");
+        } else {
+            System.out.println("\nSelectati codul promotional dorit: ");
+            int temp = 1;
+            coduriDB.sort(Comparator.comparingInt(Cod::getId));
+            for (Cod cod : coduriDB) {
+                System.out.printf("%d. %s%n", temp++, cod.toString());
+            }
+            System.out.print("Alegeti produsul: ");
+            int codIndex = scanner.nextInt();
+            while (codIndex < 1 || codIndex > coduriDB.size()) {
+                System.out.print("Optiune invalida. Introduceti un numar valid: ");
+                codIndex = scanner.nextInt();
+            }
+            scanner.nextLine();
+
+            codService.deleteCod(codIndex);
+            System.out.println("Codul a fost sters cu succes.");
+            if(!codService.getAllCodes().isEmpty()) {
+                coduriDB = codService.getAllCodes();
+                for (Cod cod : coduriDB) {
+                    if (cod.getId() > codIndex) {
+                        codService.deleteCod(cod.getId());
+                        int idScazut = cod.getId() - 1;
+                        Cod codReconstruit = new Cod(idScazut, cod.getCod(), cod.getValabilitate());
+                        codService.adaugaCod(codReconstruit);
                     }
                 }
             }

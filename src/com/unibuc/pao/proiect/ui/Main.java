@@ -1,12 +1,9 @@
 package src.com.unibuc.pao.proiect.ui;
 
-import src.com.unibuc.pao.proiect.model.Produs;
-import src.com.unibuc.pao.proiect.service.ProdusService;
 import src.com.unibuc.pao.proiect.service.Service;
 
 import java.util.Scanner;
 
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,9 +44,14 @@ public class Main {
             System.out.println("18. Modificare review");
             System.out.println("19. Stergere Review");
 
+            System.out.println("20. Adaugare cod promotional.");
+            System.out.println("21. Vizualizare coduri promotionale.");
+            System.out.println("22. Modificare coduri promotional.");
+            System.out.println("23. Stergere cod promotional.");
+
             System.out.println("0. Iesire\n");
 
-            System.out.print("Alege o optiune (0-12): ");
+            System.out.print("Alege o optiune (0-19): ");
             int optiune = scan.nextInt();
             scan.nextLine();
 
@@ -111,6 +113,18 @@ public class Main {
                     break;
                 case 19:
                     service.stergereReview();
+                    break;
+                case 20:
+                    service.adaugareCodPromotional();
+                    break;
+                case 21:
+                    service.vizualizareCoduriPromotionale();
+                    break;
+                case 22:
+                    service.modificareCodPromotional();
+                    break;
+                case 23:
+                    service.stergereCodPromotional();
                     break;
                 case 0:
                     continueRunning = false;
