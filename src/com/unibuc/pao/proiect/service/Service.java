@@ -1082,6 +1082,12 @@ public class Service {
         Set<cardCredit> carduriBD;
         carduriBD = cardService.getAllCards();
         AuditService.getInstance().logAction("citire_carduri");
+
+        if(carduriBD.isEmpty()) {
+            System.out.println("Nu aveti carduri de credit salvate.");
+            return;
+        }
+
         System.out.println("\nSelectati cardul de credit:");
         int temp = 1;
         for (cardCredit card : carduriBD) {
@@ -1322,7 +1328,7 @@ public class Service {
 
         Cod cod_promotional = new Cod(coduri_promotionale.size() + 1, cod, valabilitate);
         this.codService.adaugaCod(cod_promotional);
-
+        AuditService.getInstance().logAction("adaugare_cod_promotional");
         System.out.println("\nCod promotional adaugat cu succes.");
         System.out.println("Pentru a vedea valabilitatea sa, incearca sa il aplici la plasarea comenzii.");
     }
@@ -1334,6 +1340,7 @@ public class Service {
         for(Cod cod : coduri) {
             System.out.println(cod.toString());
         }
+        AuditService.getInstance().logAction("vizualizare_coduri_promotionale");
     }
 
     public void modificareCodPromotional() {
@@ -1389,6 +1396,7 @@ public class Service {
             codService.updateCod(codIndex, cod, valabilitate);
             coduri = codService.getAllCodes();
             System.out.println("\nCod modificat cu succes.");
+            AuditService.getInstance().logAction("modificare_cod_promotional");
         }
     }
 
@@ -1417,6 +1425,7 @@ public class Service {
             }
             scanner.nextLine();
 
+            AuditService.getInstance().logAction("stergere_cod_promotional");
             codService.deleteCod(codIndex);
             System.out.println("Codul a fost sters cu succes.");
             if(!codService.getAllCodes().isEmpty()) {
